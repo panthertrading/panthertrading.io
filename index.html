@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#0b1020" />
-  <title>Panther Trading — Server-Verified Crypto Signal Intelligence</title>
-  <meta name="description" content="Panther is server-verified crypto signal intelligence: confidence, risk flags, and entry guidance — plus Edge explanations for why." />
+  <title>Panther — Smarter Crypto Signals Without the Noise</title>
+  <meta name="description" content="Panther analyzes real token behavior—liquidity, volume, risk patterns, and momentum—to guide entries: enter, wait, pullback, chase, or stay out." />
   <style>
     :root{
       --bg:#070b14;
@@ -45,7 +45,7 @@
     }
     .brand{
       display:flex; align-items:center; gap:10px;
-      font-weight:800; letter-spacing:.2px;
+      font-weight:900; letter-spacing:.2px;
     }
     .mark{
       width:34px;height:34px;border-radius:12px;
@@ -56,13 +56,18 @@
       font-size:18px;
     }
     .nav{
-      display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
       color:var(--muted);
-      font-weight:600;
+      font-weight:700;
       font-size:14px;
     }
-    .nav a{padding:8px 10px;border-radius:12px}
+    .nav a{
+      padding:8px 10px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+    }
     .nav a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+
     .hero{
       margin-top:18px;
       border:1px solid var(--line);
@@ -81,10 +86,11 @@
       pointer-events:none;
     }
     .heroInner{position:relative; z-index:1; display:grid; gap:18px}
+
     .kicker{
       display:flex; gap:10px; flex-wrap:wrap; align-items:center;
       color:var(--muted);
-      font-weight:700;
+      font-weight:800;
       font-size:13px;
       letter-spacing:.35px;
       text-transform:uppercase;
@@ -97,6 +103,7 @@
       background: rgba(0,0,0,.18);
     }
     .dot{width:7px;height:7px;border-radius:999px;background:var(--accent); box-shadow:0 0 18px rgba(0,255,170,.5)}
+
     h1{
       margin:0;
       font-size: clamp(32px, 4.3vw, 54px);
@@ -108,8 +115,9 @@
       color:var(--muted);
       font-size: clamp(15px, 1.4vw, 18px);
       line-height:1.55;
-      max-width: 820px;
+      max-width: 900px;
     }
+
     .ctaRow{
       display:flex; gap:12px; flex-wrap:wrap; align-items:center;
       margin-top:6px;
@@ -122,7 +130,7 @@
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
       color:var(--text);
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.2px;
       box-shadow: 0 10px 30px rgba(0,0,0,.28);
     }
@@ -136,8 +144,24 @@
     .hint{
       color:var(--muted2);
       font-size:13px;
-      font-weight:650;
+      font-weight:700;
     }
+
+    .badgeRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px}
+    .badge{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.2px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+    }
+    .badgeEdge{border-color: rgba(0,255,170,.30); color: rgba(0,255,170,.95); background: rgba(0,255,170,.07)}
+    .badgeWarn{border-color: rgba(255,207,92,.30); color: rgba(255,207,92,.95); background: rgba(255,207,92,.07)}
+    .badgeDanger{border-color: rgba(255,77,109,.28); color: rgba(255,77,109,.95); background: rgba(255,77,109,.07)}
+    .badgeDim{color:var(--muted2)}
 
     .grid{
       margin-top:18px;
@@ -160,22 +184,6 @@
     .span8{grid-column: span 8}
     .span12{grid-column: span 12}
 
-    .badgeRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-    .badge{
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.2px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color:var(--muted);
-    }
-    .badgeEdge{border-color: rgba(0,255,170,.30); color: rgba(0,255,170,.95); background: rgba(0,255,170,.07)}
-    .badgeWarn{border-color: rgba(255,207,92,.30); color: rgba(255,207,92,.95); background: rgba(255,207,92,.07)}
-    .badgeDanger{border-color: rgba(255,77,109,.28); color: rgba(255,77,109,.95); background: rgba(255,77,109,.07)}
-    .badgeDim{color:var(--muted2)}
-
     .sectionTitle{
       margin:26px 2px 10px;
       display:flex; align-items:flex-end; justify-content:space-between;
@@ -189,7 +197,7 @@
     .sectionTitle .small{
       color:var(--muted2);
       font-size:13px;
-      font-weight:650;
+      font-weight:700;
     }
 
     .table{
@@ -205,11 +213,12 @@
       padding:12px 14px;
       border-bottom:1px solid rgba(255,255,255,.06);
       font-size:14px;
+      vertical-align:top;
     }
     .table th{
       text-align:left;
       color:var(--muted);
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.2px;
       background: rgba(255,255,255,.03);
     }
@@ -222,24 +231,14 @@
       border-radius:999px;
       border:1px solid rgba(255,255,255,.10);
       color:var(--muted);
-      font-weight:800;
+      font-weight:900;
       font-size:12px;
       letter-spacing:.2px;
+      white-space:nowrap;
     }
     .tagEdge{border-color: rgba(0,255,170,.30); color: rgba(0,255,170,.95); background: rgba(0,255,170,.07)}
     .tagFree{border-color: rgba(124,92,255,.30); color: rgba(124,92,255,.92); background: rgba(124,92,255,.08)}
 
-    .footer{
-      margin-top:22px;
-      padding-top:18px;
-      border-top:1px solid rgba(255,255,255,.08);
-      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
-      color:var(--muted2);
-      font-size:13px;
-    }
-    .links{display:flex; gap:10px; flex-wrap:wrap}
-    .links a{padding:8px 10px; border-radius:12px; border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03)}
-    .links a:hover{background: rgba(255,255,255,.06); color:var(--text)}
     .fine{
       color:var(--muted2);
       font-size:12px;
@@ -247,6 +246,20 @@
       margin-top:12px;
     }
     .fine a{text-decoration:underline}
+
+    .footer{
+      margin-top:22px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.08);
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;
+      color:var(--muted2);
+      font-size:13px;
+    }
+    .links{display:flex; gap:10px; flex-wrap:wrap}
+    .links a{padding:8px 10px; border-radius:12px; border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03)}
+    .links a:hover{background: rgba(255,255,255,.06); color:var(--text)}
+    .tagline{max-width:540px; line-height:1.5}
+
     @media (max-width: 820px){
       .span6,.span8,.span4{grid-column: span 12}
       .hero{padding:28px 16px}
@@ -259,11 +272,14 @@
     <div class="topbar">
       <div class="brand">
         <div class="mark">🐆</div>
-        <div>Panther Trading</div>
+        <div>Panther</div>
       </div>
       <div class="nav">
         <a href="/edge/">Edge</a>
         <a href="/download/">Download</a>
+        <!-- TODO: replace with your real links -->
+        <a href="https://x.com/" target="_blank" rel="noreferrer">X</a>
+        <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
         <a href="https://github.com/panthertrading/PantherTrading" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </div>
@@ -271,75 +287,77 @@
     <section class="hero">
       <div class="heroInner">
         <div class="kicker">
-          <span class="pill"><span class="dot"></span> Server-Verified</span>
-          <span class="pill">Anonymous activation</span>
-          <span class="pill">No TG required</span>
-          <span class="pill">UI cracks = useless</span>
+          <span class="pill"><span class="dot"></span> Pattern-driven, not vibe-driven</span>
+          <span class="pill">Risk flags built in</span>
+          <span class="pill">Real-time monitoring</span>
+          <span class="pill">Custom speed &amp; coverage</span>
         </div>
 
-        <h1>Pattern Analysis & Network Trends for Early Recognition</h1>
+        <h1>Smarter crypto signals — without the noise.</h1>
         <p class="sub">
-          Panther doesn’t ask you to “trust the vibes.” It gives you confidence, risk flags, and entry guidance — and with
-          <strong>Panther Edge</strong> you get the <strong>why</strong> behind each signal, verified by the server.
+          Panther analyzes real token behavior — liquidity, volume, risk patterns, and momentum —
+          to help you decide <strong>when to enter</strong>, <strong>when to wait</strong>, or <strong>when to stay out</strong>.
+          Slightly degen. Fully disciplined.
         </p>
 
         <div class="ctaRow">
           <a class="btn btnPrimary" href="/download/">⬇️ Download Panther</a>
-          <a class="btn" href="/edge/">See what Edge unlocks →</a>
+          <a class="btn" href="/edge/">See Panther Edge →</a>
           <span class="hint">Windows build: <strong>PantherTrading.exe</strong></span>
         </div>
 
         <div class="badgeRow">
-          <span class="badge badgeEdge">Edge: explanations + drivers</span>
           <span class="badge badgeWarn">Risk: rug / bundler / whale</span>
           <span class="badge badgeDanger">Entry: CHASE / WAIT / PULLBACK</span>
-          <span class="badge badgeDim">Built for fast decisions</span>
+          <span class="badge badgeEdge">Edge: faster + more coverage</span>
+          <span class="badge badgeDim">No hype calls</span>
         </div>
       </div>
     </section>
 
     <div class="grid">
       <div class="card span6">
-        <h3>What Panther does (no fluff)</h3>
+        <h3>What Panther does</h3>
         <p>
-          Live token monitoring, risk signals, confidence scoring, and entry guidance.
-          If a setup is trash, it tells you. If it’s clean, it tells you why (Edge).
+          Monitors tokens in real time and evaluates behavior: liquidity stability, volume strength &amp; decay,
+          market cap movement, holder risk, and phase changes. If it’s trash, Panther says so. If it’s clean,
+          Panther tells you <em>how</em> clean.
         </p>
       </div>
 
       <div class="card span6">
-        <h3>What makes it different</h3>
+        <h3>Signals you can act on</h3>
         <p>
-          The server is the source of truth. Edge value is server-gated.
-          Cracking the UI doesn’t unlock anything — the server decides.
+          Panther doesn’t scream “BUY” at everything. It gives clear entry guidance: <strong>STRONG BUY</strong>, <strong>BUY SMALL</strong>,
+          <strong>WAIT</strong>, <strong>CHASE</strong>, <strong>PULLBACK</strong>, or <strong>DON’T INVEST</strong>. No “maybe bro” signals.
         </p>
       </div>
 
       <div class="card span4">
-        <h3>Risk flags</h3>
-        <p>Rug / bundler / whale risk signals to keep you out of obvious traps.</p>
+        <h3>Built-in risk flags</h3>
+        <p>Clear warnings for rug risk, bundler behavior, and whale concentration — so you see danger before you ape.</p>
       </div>
 
       <div class="card span4">
-        <h3>Confidence</h3>
-        <p>Scored setup quality based on liquidity, volume behavior, structure, and risk.</p>
+        <h3>Confidence scoring</h3>
+        <p>Setup quality scoring based on structure, liquidity behavior, and volume integrity — not just candle color.</p>
       </div>
 
       <div class="card span4">
-        <h3>Entry guidance</h3>
-        <p>CHASE, WAIT, PULLBACK, CATCH_FALLING — not “maybe bro” nonsense.</p>
+        <h3>Monitoring that matters</h3>
+        <p>Panther watches tokens and highlights meaningful changes: signal shifts, phase transitions, risk spikes, or volume dying.</p>
       </div>
 
       <div class="card span12">
         <div class="sectionTitle" id="free-vs-edge">
           <h2>Free vs Edge</h2>
-          <div class="small">Edge doesn’t change signals — it explains them.</div>
+          <div class="small">Edge = speed + coverage + control.</div>
         </div>
 
         <table class="table">
           <thead>
             <tr>
-              <th style="width:32%">Tier</th>
+              <th style="width:28%">Tier</th>
               <th>What you get</th>
             </tr>
           </thead>
@@ -347,38 +365,51 @@
             <tr>
               <td><span class="tag tagFree">FREE</span></td>
               <td>
-                Signals, live metrics, monitoring, and the core Panther UI.
+                Core signals, live metrics, risk flags, and monitoring with conservative defaults.
+                Built to keep you out of obvious traps — without overwhelming you.
               </td>
             </tr>
             <tr>
               <td><span class="tag tagEdge">EDGE</span></td>
               <td>
-                Confidence (why), Risk (why), Entry (why) — plus drivers.
-                Server-verified. Cached for speed. Useless to crack.
+                Faster refresh intervals, higher monitoring limits, and profile-based behavior
+                (Aggro / Balanced / Safer). More visibility on developing setups — without more noise.
               </td>
             </tr>
           </tbody>
         </table>
 
         <p class="fine">
-          ⚠️ Crypto is risky. Panther is an intelligence tool, not financial advice.
-          If you’re going to ape, at least ape with better information.
+          Panther is an intelligence tool — not financial advice. Crypto is risky. Panther helps you understand the setup before you click buy.
+        </p>
+      </div>
+
+      <div class="card span12">
+        <div class="sectionTitle">
+          <h2>What Panther is not</h2>
+          <div class="small">Keep it real.</div>
+        </div>
+        <p style="margin:0;color:var(--muted);line-height:1.55;font-size:14px">
+          ❌ Not an auto-trading bot. &nbsp; ❌ Not a pump group. &nbsp; ❌ Not a promise of profits. <br/>
+          Panther helps you make cleaner decisions — you still pull the trigger.
         </p>
       </div>
     </div>
 
     <div class="footer">
-      <div>© <span id="y"></span> Panther Trading</div>
+      <div class="tagline">
+        <div style="font-weight:900;color:var(--text);margin-bottom:6px">Panther</div>
+        <div>Pattern Analysis &amp; Network Trends for Early Recognition.</div>
+      </div>
       <div class="links">
         <a href="/download/">Download</a>
         <a href="/edge/">Edge</a>
+        <!-- TODO: replace with your real links -->
+        <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+        <a href="https://x.com/" target="_blank" rel="noreferrer">X</a>
         <a href="https://github.com/panthertrading/PantherTrading" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </div>
   </div>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
