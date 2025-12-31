@@ -1,342 +1,481 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panther — Smarter Crypto Signals</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#0b1020" name="theme-color"/>
+<title>Panther — Smarter Crypto Signals Without the Noise</title>
+<meta content="Panther analyzes real token behavior—liquidity, volume, risk patterns, and momentum—to guide entries: enter, wait, pullback, chase, or stay out." name="description"/>
+<style>
+    :root{
+      --bg:#070b14;
+      --panel:#0c1426;
+      --panel2:#0a1020;
+      --text:#e9eefc;
+      --muted:#a9b4d6;
+      --muted2:#7f8ab0;
+      --line:rgba(255,255,255,.08);
+      --glow:rgba(0,255,170,.16);
+      --accent:#00ffaa;
+      --accent2:#7c5cff;
+      --danger:#ff4d6d;
+      --warn:#ffcf5c;
+      --radius:18px;
+      --shadow:0 14px 40px rgba(0,0,0,.38);
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 18% 0%, rgba(124,92,255,.22), transparent 62%),
+        radial-gradient(800px 520px at 80% 10%, rgba(0,255,170,.16), transparent 60%),
+        radial-gradient(900px 700px at 55% 120%, rgba(0,160,255,.08), transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 60px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:12px 14px; border:1px solid var(--line);
+      border-radius:14px; background:rgba(8,12,22,.55); backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.2px}
+    .mark{
+      width:34px;height:34px;border-radius:12px;
+      background: linear-gradient(135deg, rgba(0,255,170,.18), rgba(124,92,255,.18));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 0 0 6px rgba(0,255,170,.06);
+      display:grid; place-items:center;
+      font-size:18px;
+    }
+    .nav{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      color:var(--muted); font-weight:700; font-size:14px;
+    }
+    .nav a{
+      padding:8px 10px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+    }
+    .nav a:hover{background:rgba(255,255,255,.06); color:var(--text)}
 
-  <style>
-    :root {
-      --bg: #070b12;
-      --panel: #0c1220;
-      --panel-soft: #0f172a;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --accent: #22c55e;
-      --accent-soft: rgba(34,197,94,0.15);
-      --danger: #ef4444;
-      --warn: #f59e0b;
-      --edge: #38bdf8;
-      --radius: 16px;
+    .hero{
+      margin-top:18px;
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:34px 22px;
+      background: linear-gradient(180deg, rgba(12,20,38,.78), rgba(10,16,32,.55));
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    /* Subtle hero texture: abstract waves (no candles, no meme art) */
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      opacity:.065;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='700' viewBox='0 0 1200 700'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2300ffaa'/%3E%3Cstop offset='1' stop-color='%237c5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' stroke='url(%23g)' stroke-width='2'%3E%3Cpath d='M-20 520 C 140 450, 220 560, 360 500 S 620 430, 780 500 S 980 610, 1220 520'/%3E%3Cpath d='M-20 420 C 120 350, 260 470, 380 410 S 640 330, 820 400 S 1010 520, 1220 430'/%3E%3Cpath d='M-20 320 C 150 250, 270 360, 410 310 S 660 250, 850 300 S 1030 410, 1220 340'/%3E%3Cpath d='M-20 220 C 180 170, 300 240, 450 210 S 700 170, 890 210 S 1050 290, 1220 240'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.35' stroke-width='1'%3E%3Cpath d='M80 640 L 260 560 L 430 610 L 640 520 L 820 560 L 1040 500'/%3E%3Cpath d='M120 120 L 320 180 L 520 140 L 700 200 L 960 150 L 1120 210'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: center;
+      pointer-events:none;
+      filter: blur(.2px);
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 420px at 20% 10%, rgba(0,255,170,.12), transparent 60%),
+                  radial-gradient(800px 520px at 80% 20%, rgba(124,92,255,.14), transparent 65%);
+      pointer-events:none;
+    }
+    .heroInner{position:relative; z-index:1; display:grid; gap:16px}
+
+    .kicker{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      color:var(--muted); font-weight:800; font-size:13px;
+      letter-spacing:.35px; text-transform:uppercase;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:7px 10px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:999px;
+      background: rgba(0,0,0,.18);
+    }
+    .dot{width:7px;height:7px;border-radius:999px;background:var(--accent); box-shadow:0 0 18px rgba(0,255,170,.5)}
+
+    h1{
+      margin:0;
+      font-size: clamp(32px, 4.3vw, 54px);
+      line-height:1.05;
+      letter-spacing:-.6px;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(15px, 1.4vw, 18px);
+      line-height:1.55;
+      max-width: 900px;
     }
 
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, sans-serif;
-      background: radial-gradient(1200px 600px at 70% -10%, #1e293b, transparent 60%),
-                  radial-gradient(900px 500px at -10% 30%, #064e3b, transparent 60%),
-                  var(--bg);
-      color: var(--text);
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 28px 20px 80px;
-    }
-
-    /* NAV */
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 40px;
-    }
-    .nav .logo {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      font-weight: 700;
-      font-size: 18px;
-    }
-    .nav .links a {
-      margin-left: 14px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      font-size: 13px;
-    }
-
-    /* HERO */
-    .hero {
-      background: linear-gradient(145deg, #0b1220, #0a1626);
-      border-radius: 24px;
-      padding: 42px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
-    }
-
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .badge {
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      background: rgba(255,255,255,0.05);
-    }
-
-    h1 {
-      font-size: 48px;
-      line-height: 1.1;
-      margin: 0 0 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .sub {
-      font-size: 17px;
-      color: var(--muted);
-      max-width: 700px;
-      margin-bottom: 26px;
-    }
-
-    /* CTA */
-    .cta {
-      display: grid;
+    /* CTA: make Download dominant, higher, and strong on mobile */
+    .ctaRow{
+      display:grid;
       grid-template-columns: 1fr auto;
-      gap: 14px;
-      align-items: center;
-      margin-bottom: 14px;
+      gap:12px;
+      align-items:center;
+      margin-top:2px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      font-weight:900;
+      letter-spacing:.2px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.28);
+      white-space:nowrap;
+    }
+    .btn:hover{background: rgba(255,255,255,.085)}
+    .btnPrimary{
+      width:100%;
+      justify-content:center;
+      padding:18px 22px;
+      font-size:16px;
+      border-color: rgba(0,255,170,.55);
+      background: linear-gradient(90deg, rgba(0,255,170,.85), rgba(0,200,120,.78));
+      color:#08130f;
+      box-shadow: 0 0 0 8px rgba(0,255,170,.10), 0 26px 56px rgba(0,0,0,.42), 0 0 40px rgba(0,255,170,.22);
+    }
+    .btnPrimary:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 9px rgba(0,255,170,.12), 0 30px 62px rgba(0,0,0,.44), 0 0 52px rgba(0,255,170,.28);
+    }
+    .hint{color:var(--muted2);font-size:13px;font-weight:800;text-align:left;margin-top:10px;opacity:.9}
+    .proofline{
+      margin-top:6px;
+      color:var(--muted2);
+      font-size:13px;
+      font-weight:800;
     }
 
-    .download-btn {
-      width: 100%;
-      padding: 18px 20px;
-      font-size: 17px;
-      font-weight: 700;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(135deg, #22c55e, #16a34a);
-      color: #04120a;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(34,197,94,0.35);
+    .badgeRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px}
+    .badge{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.2px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+    }
+    .badgeEdge{border-color: rgba(0,255,170,.30); color: rgba(0,255,170,.95); background: rgba(0,255,170,.07)}
+    .badgeWarn{border-color: rgba(255,207,92,.30); color: rgba(255,207,92,.95); background: rgba(255,207,92,.07)}
+    .badgeDanger{border-color: rgba(255,77,109,.28); color: rgba(255,77,109,.95); background: rgba(255,77,109,.07)}
+    .badgeDim{color:var(--muted2)}
+
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: rgba(10,16,32,.62);
+      box-shadow: 0 10px 30px rgba(0,0,0,.20);
+      padding:16px 16px;
+      min-height: 120px;
+    }
+    .card h3{margin:0 0 8px;font-size:15px;letter-spacing:.2px}
+    .card p{margin:0;color:var(--muted);line-height:1.5;font-size:14px}
+    .span6{grid-column: span 6}
+    .span4{grid-column: span 4}
+    .span8{grid-column: span 8}
+    .span12{grid-column: span 12}
+
+    .sectionTitle{
+      margin:26px 2px 10px;
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:12px; flex-wrap:wrap;
+    }
+    .sectionTitle h2{margin:0; font-size:18px; letter-spacing:.2px}
+    .sectionTitle .small{color:var(--muted2); font-size:13px; font-weight:800}
+
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background: rgba(10,16,32,.62);
+    }
+    .table th, .table td{
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      font-size:14px;
+      vertical-align:top;
+    }
+    .table th{
+      text-align:left;
+      color:var(--muted);
+      font-weight:900;
+      letter-spacing:.2px;
+      background: rgba(255,255,255,.03);
+    }
+    .table tr:last-child td{border-bottom:none}
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.2px;
+      white-space:nowrap;
+    }
+    .tagEdge{border-color: rgba(0,255,170,.30); color: rgba(0,255,170,.95); background: rgba(0,255,170,.07)}
+    .tagFree{border-color: rgba(124,92,255,.30); color: rgba(124,92,255,.92); background: rgba(124,92,255,.08)}
+    .tagTease{
+      border-color: rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: var(--muted2);
+      margin-left:8px;
     }
 
-    .edge-btn {
-      padding: 16px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.06);
-    }
+    .fine{color:var(--muted2); font-size:12px; line-height:1.5; margin-top:12px}
+    .fine a{text-decoration:underline}
 
-    .build-note {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 6px;
+    /* Proof cards */
+    .proofWrap{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .shot{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      overflow:hidden;
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 14px 34px rgba(0,0,0,.28);
     }
+    .shot img{display:block; width:100%; height:auto}
+    .cap{padding:10px 12px; color:var(--muted); font-size:13px; font-weight:800; border-top:1px solid rgba(255,255,255,.06)}
+    .cap strong{color:var(--text)}
 
-    .proof-line {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #9ca3af;
+    .footer{
+      margin-top:22px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.08);
+      display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;
+      color:var(--muted2);
+      font-size:13px;
     }
-
-    /* TAG ROW */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
+    .tagline{max-width:540px; line-height:1.5}
+    .iconLinks{display:flex; gap:10px; flex-wrap:wrap}
+    .iconBtn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:900;
     }
-    .tag {
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      background: rgba(255,255,255,0.06);
+    .iconBtn:hover{background: rgba(255,255,255,.06)}
+    .iconBtn svg{width:18px;height:18px; opacity:.95}
+
+    @media (max-width: 920px){
+      .ctaRow{grid-template-columns: 1fr}
+      .hint{text-align:left}
+      .proofWrap{grid-template-columns:1fr}
     }
-    .tag.risk { background: rgba(239,68,68,0.15); color: #fecaca; }
-    .tag.entry { background: rgba(245,158,11,0.15); color: #fde68a; }
-    .tag.edge { background: rgba(56,189,248,0.15); color: #bae6fd; }
-
-    /* SECTIONS */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-      margin-top: 36px;
-    }
-
-    .card {
-      background: linear-gradient(145deg, #0b1220, #0b1426);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
-    }
-
-    .card p {
-      margin: 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    /* PROOF */
-    .proof {
-      margin-top: 48px;
-    }
-
-    .proof-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .proof-card {
-      background: linear-gradient(145deg, #0b1220, #0b1426);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
-    }
-
-    .proof-card .title {
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .danger { color: #f87171; }
-    .wait { color: #facc15; }
-
-    footer {
-      margin-top: 70px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    footer a {
-      margin: 0 8px;
-      font-weight: 600;
+    @media (max-width: 820px){
+      .span6,.span8,.span4{grid-column: span 12}
+      .hero{padding:28px 16px}
+      .topbar{padding:10px 12px}
+      .btnPrimary{width:100%}
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-
-    <div class="nav">
-      <div class="logo">🐆 Panther</div>
-      <div class="links">
-        <a href="#">Edge</a>
-        <a href="#">Download</a>
-        <a href="#">X</a>
-        <a href="#">Telegram</a>
-        <a href="#">GitHub</a>
-      </div>
-    </div>
-
-    <section class="hero">
-      <div class="badges">
-        <div class="badge">Pattern-driven, not vibe-driven</div>
-        <div class="badge">Risk flags built-in</div>
-        <div class="badge">Real-time monitoring</div>
-        <div class="badge">Custom speed & coverage</div>
-      </div>
-
-      <h1>Smarter crypto signals — without the noise.</h1>
-
-      <p class="sub">
-        Panther analyzes real token behavior — liquidity, volume, risk patterns, and momentum —
-        to help you decide when to enter, when to wait, or when to stay out.
-        Slightly degen. Fully disciplined.
-      </p>
-
-      <div class="cta">
-        <button class="download-btn">⬇ Download Panther</button>
-        <div class="edge-btn">See Panther Edge →</div>
-      </div>
-
-      <div class="build-note">Windows build: PantherTrading.exe</div>
-      <div class="proof-line">
-        Already helping early traders spot risks on new launches.
-      </div>
-
-      <div class="tags">
-        <div class="tag risk">Risk: rug / bundler / whale</div>
-        <div class="tag entry">Entry: CHASE / WAIT / PULLBACK</div>
-        <div class="tag edge">Edge: faster + more coverage</div>
-        <div class="tag">No hype calls</div>
-      </div>
-    </section>
-
-    <div class="grid">
-      <div class="card">
-        <h3>What Panther does</h3>
-        <p>
-          Monitors tokens in real time and evaluates liquidity stability, volume strength & decay,
-          holder behavior, and phase changes.
+<div class="wrap">
+<div class="topbar">
+<div class="brand">
+<div class="mark">🐆</div>
+<div>Panther</div>
+</div>
+<div class="nav">
+<a href="/edge/">Edge</a>
+<a href="/download/">Download</a>
+<!-- TODO: replace with your real links -->
+<a href="https://x.com/" rel="noreferrer" target="_blank">X</a>
+<a href="https://t.me/" rel="noreferrer" target="_blank">Telegram</a>
+<a href="https://github.com/panthertrading/PantherTrading" rel="noreferrer" target="_blank">GitHub</a>
+</div>
+</div>
+<section class="hero">
+<div class="heroInner">
+<div class="kicker">
+<span class="pill"><span class="dot"></span> Pattern-driven, not vibe-driven</span>
+<span class="pill">Risk flags built in</span>
+<span class="pill">Real-time monitoring</span>
+<span class="pill">Custom speed &amp; coverage</span>
+</div>
+<h1>Smarter crypto signals — without the noise.</h1>
+<p class="sub">
+          Panther analyzes real token behavior — liquidity, volume, risk patterns, and momentum —
+          to help you decide <strong>when to enter</strong>, <strong>when to wait</strong>, or <strong>when to stay out</strong>.
+          Slightly degen. Fully disciplined.
         </p>
-      </div>
-
-      <div class="card">
-        <h3>Signals you can act on</h3>
-        <p>
-          STRONG BUY, BUY SMALL, WAIT, CHASE, PULLBACK, or DON’T INVEST.
-          No “maybe bro” calls.
+<div class="ctaRow">
+<a class="btn btnPrimary" href="/download/">⬇️ Download Panther</a>
+<a class="btn" href="/edge/">See Panther Edge →</a>
+<div class="hint">
+            Windows build: <strong>PantherTrading.exe</strong>
+</div>
+</div>
+<div class="badgeRow">
+<span class="badge badgeWarn">Risk: rug / bundler / whale</span>
+<span class="badge badgeDanger">Entry: CHASE / WAIT / PULLBACK</span>
+<span class="badge badgeEdge">Edge: faster + more coverage</span>
+<span class="badge badgeDim">No hype calls</span>
+</div>
+<div class="socialProofLine">Already helping early traders spot risks on new launches.</div>
+</div>
+</section>
+<div class="grid">
+<div class="card span6">
+<h3>What Panther does</h3>
+<p>
+          Monitors tokens in real time and evaluates behavior: liquidity stability, volume strength &amp; decay,
+          market cap movement, holder risk, and phase changes. If it’s trash, Panther says so. If it’s clean,
+          Panther tells you <em>how</em> clean.
         </p>
-      </div>
-
-      <div class="card">
-        <h3>Built-in risk flags</h3>
-        <p>
-          Clear warnings for rug risk, bundler behavior, and whale concentration —
-          so you see danger before you ape.
+</div>
+<div class="card span6">
+<h3>Signals you can act on</h3>
+<p>
+          Panther doesn’t scream “BUY” at everything. It gives clear entry guidance: <strong>STRONG BUY</strong>, <strong>BUY SMALL</strong>,
+          <strong>WAIT</strong>, <strong>CHASE</strong>, <strong>PULLBACK</strong>, or <strong>DON’T INVEST</strong>. No “maybe bro” signals.
         </p>
-      </div>
-
-      <div class="card">
-        <h3>Confidence scoring</h3>
-        <p>
-          Setup quality scored on structure, liquidity, behavior, and volume integrity —
-          not candle color.
+</div>
+<div class="card span12">
+<div class="sectionTitle">
+<h2>Proof (real examples)</h2>
+<div class="small">Replace these placeholders with 1–2 redacted screenshots.</div>
+</div>
+<div class="proofWrap">
+<div class="shot">
+<img alt="Panther example: Don't Invest — very high rug risk" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='700'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230b1020'/%3E%3Cstop offset='1' stop-color='%23111b33'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='700' fill='url(%23bg)'/%3E%3Crect x='60' y='60' width='1080' height='580' rx='26' fill='%230d1628' stroke='%23203052'/%3E%3Ctext x='110' y='150' fill='%23ff4d6d' font-family='Arial' font-size='44' font-weight='700'%3EDON%E2%80%99T INVEST%3C/text%3E%3Ctext x='110' y='210' fill='%23a9b4d6' font-family='Arial' font-size='26'%3EVERY HIGH rug risk detected%3C/text%3E%3Crect x='110' y='270' width='980' height='18' rx='9' fill='%23203052'/%3E%3Crect x='110' y='270' width='700' height='18' rx='9' fill='%23ff4d6d'/%3E%3Ctext x='110' y='340' fill='%23a9b4d6' font-family='Arial' font-size='22'%3E• Liquidity instability%3C/text%3E%3Ctext x='110' y='380' fill='%23a9b4d6' font-family='Arial' font-size='22'%3E• Bundler behavior%3C/text%3E%3Ctext x='110' y='420' fill='%23a9b4d6' font-family='Arial' font-size='22'%3E• Whale concentration%3C/text%3E%3Ctext x='110' y='520' fill='%237f8ab0' font-family='Arial' font-size='18'%3E(placeholder image)%3C/text%3E%3C/svg%3E"/>
+<div class="cap"><strong>DON’T INVEST</strong> — risk surfaced before you ape.</div>
+</div>
+<div class="shot">
+<img alt="Panther example: Wait / Pullback guidance" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='700'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230b1020'/%3E%3Cstop offset='1' stop-color='%23111b33'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='700' fill='url(%23bg)'/%3E%3Crect x='60' y='60' width='1080' height='580' rx='26' fill='%230d1628' stroke='%23203052'/%3E%3Ctext x='110' y='150' fill='%23ffcf5c' font-family='Arial' font-size='44' font-weight='700'%3EWAIT%3C/text%3E%3Ctext x='110' y='210' fill='%23a9b4d6' font-family='Arial' font-size='26'%3EVolume decaying — better entry likely%3C/text%3E%3Cpath d='M120 520 L260 470 L380 505 L520 430 L690 470 L860 420 L1060 450' fill='none' stroke='%2300ffaa' stroke-width='6' opacity='.7'/%3E%3Cpath d='M120 560 L260 530 L380 548 L520 500 L690 525 L860 492 L1060 520' fill='none' stroke='%237c5cff' stroke-width='6' opacity='.55'/%3E%3Ctext x='110' y='520' fill='%237f8ab0' font-family='Arial' font-size='18'%3E(placeholder image)%3C/text%3E%3C/svg%3E"/>
+<div class="cap"><strong>WAIT / PULLBACK</strong> — entry guidance based on structure.</div>
+</div>
+</div>
+</div>
+<div class="card span4">
+<h3>Built-in risk flags</h3>
+<p>Clear warnings for rug risk, bundler behavior, and whale concentration — so you see danger before you ape.</p>
+</div>
+<div class="card span4">
+<h3>Confidence scoring</h3>
+<p>Setup quality scoring based on structure, liquidity behavior, and volume integrity — not just candle color.</p>
+</div>
+<div class="card span4">
+<h3>Monitoring that matters</h3>
+<p>Panther watches tokens and highlights meaningful changes: signal shifts, phase transitions, risk spikes, or volume dying.</p>
+</div>
+<div class="card span12">
+<div class="sectionTitle" id="free-vs-edge">
+<h2>Free vs Edge</h2>
+<div class="small">Edge = speed + coverage + control.</div>
+</div>
+<table class="table">
+<thead>
+<tr>
+<th style="width:28%">Tier</th>
+<th>What you get</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="tag tagFree">FREE</span></td>
+<td>
+                Core signals, live metrics, risk flags, and monitoring with conservative defaults.
+                Built to keep you out of obvious traps — without overwhelming you.
+              </td>
+</tr>
+<tr>
+<td>
+<span class="tag tagEdge">EDGE</span>
+<span class="tag tagTease">More speed + coverage</span>
+</td>
+<td>
+                Faster refresh intervals, higher monitoring limits, and profile-based behavior
+                (Aggro / Balanced / Safer). More visibility on developing setups — without more noise.
+              </td>
+</tr>
+</tbody>
+</table>
+<p class="fine">
+          Panther is an intelligence tool — not financial advice. Crypto is risky. Panther helps you understand the setup before you click buy.
         </p>
-      </div>
-    </div>
-
-    <section class="proof">
-      <h2>Proof (real examples)</h2>
-
-      <div class="proof-grid">
-        <div class="proof-card">
-          <div class="title danger">DON’T INVEST</div>
-          <p>Very high rug risk detected</p>
-          <p style="margin-top:10px;font-size:13px;color:#9ca3af;">
-            Liquidity instability · Bundler behavior · Whale concentration
-          </p>
-        </div>
-
-        <div class="proof-card">
-          <div class="title wait">WAIT</div>
-          <p>Volume decaying — better entry likely</p>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <p>
-        Crypto is risky. Panther is an intelligence tool, not financial advice.
-        If you’re going to ape, at least ape with better information.
-      </p>
-      <p>
-        <a href="#">X</a> · <a href="#">Telegram</a> · <a href="#">GitHub</a>
-      </p>
-    </footer>
-
-  </div>
+</div>
+<div class="card span12">
+<div class="sectionTitle">
+<h2>What Panther is not</h2>
+<div class="small">Keep it real.</div>
+</div>
+<p style="margin:0;color:var(--muted);line-height:1.55;font-size:14px">
+          ❌ Not an auto-trading bot.   ❌ Not a pump group.   ❌ Not a promise of profits. <br/>
+          Panther helps you make cleaner decisions — you still pull the trigger.
+        </p>
+</div>
+</div>
+<div class="footer">
+<div class="tagline">
+<div style="font-weight:900;color:var(--text);margin-bottom:6px">Panther</div>
+<div>Pattern Analysis &amp; Network Trends for Early Recognition.</div>
+</div>
+<div class="iconLinks">
+<!-- TODO: replace with your real links -->
+<a aria-label="Telegram" class="iconBtn" href="https://t.me/" rel="noreferrer" target="_blank">
+<svg aria-hidden="true" fill="none" viewbox="0 0 24 24">
+<path d="M21.8 4.6 2.9 11.9c-1.3.5-1.3 1.2-.2 1.6l4.8 1.5 1.8 5.6c.2.6.1.8.9.8.6 0 1-.3 1.3-.6l2.4-2.3 5 3.7c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.9-1.4Z" stroke="currentColor" stroke-width="1.6"></path>
+<path d="M7.7 14.9 18.6 8.2c.6-.4 1.1-.2.6.3l-8.8 8.4-.4 3.8" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path>
+</svg>
+          Telegram
+        </a>
+<a aria-label="X" class="iconBtn" href="https://x.com/" rel="noreferrer" target="_blank">
+<svg aria-hidden="true" fill="none" viewbox="0 0 24 24">
+<path d="M18.3 3H21l-6.9 7.9L22 21h-6.2l-4.9-6.4L5.3 21H2.6l7.4-8.5L2 3h6.3l4.4 5.8L18.3 3Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"></path>
+</svg>
+          X
+        </a>
+<a aria-label="GitHub" class="iconBtn" href="https://github.com/panthertrading/PantherTrading" rel="noreferrer" target="_blank">
+<svg aria-hidden="true" fill="none" viewbox="0 0 24 24">
+<path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.6 2.9 8.5 6.9 9.8.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.8-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1 .8-.2 1.6-.3 2.4-.3.8 0 1.6.1 2.4.3 2-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.8 1 1.7 1 2.8 0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 2v2.9c0 .3.2.6.7.5 4-1.3 6.9-5.2 6.9-9.8C22 6.6 17.5 2 12 2Z" stroke="currentColor" stroke-width="1.2"></path>
+</svg>
+          GitHub
+        </a>
+<a aria-label="Download" class="iconBtn" href="/download/">
+<svg aria-hidden="true" fill="none" viewbox="0 0 24 24">
+<path d="M12 3v10m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+<path d="M4 17v3h16v-3" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path>
+</svg>
+          Download
+        </a>
+</div>
+</div>
+</div>
 </body>
 </html>
