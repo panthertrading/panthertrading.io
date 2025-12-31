@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Panther Edge — Server-Verified Explanations</title>
+  <meta name="description" content="Panther Edge unlocks server-verified explanations: Confidence (why), Risk (why), Entry (why) — plus drivers." />
+  <style>
+    :root{
+      --bg:#070b14; --panel:#0c1426; --text:#e9eefc; --muted:#a9b4d6; --muted2:#7f8ab0;
+      --line:rgba(255,255,255,.08); --accent:#00ffaa; --accent2:#7c5cff; --radius:18px; --shadow:0 14px 40px rgba(0,0,0,.38);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(900px 600px at 18% 0%, rgba(124,92,255,.22), transparent 62%),
+        radial-gradient(800px 520px at 80% 10%, rgba(0,255,170,.16), transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1000px;margin:0 auto;padding:26px 18px 60px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900}
+    .mark{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg, rgba(0,255,170,.18), rgba(124,92,255,.18));border:1px solid rgba(255,255,255,.10);display:grid;place-items:center}
+    .nav{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-weight:700;font-size:14px}
+    .nav a{padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+    .nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .hero{
+      margin-top:16px; padding:22px; border-radius:24px; border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(12,20,38,.78), rgba(10,16,32,.55));
+      box-shadow:var(--shadow)
+    }
+    h1{margin:0 0 10px;font-size:34px;letter-spacing:-.4px}
+    p{margin:0;color:var(--muted);line-height:1.55}
+    .grid{margin-top:14px;display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+    .card{grid-column:span 6;padding:16px;border-radius:18px;border:1px solid var(--line);background:rgba(10,16,32,.62)}
+    .card h3{margin:0 0 8px;font-size:16px}
+    .card p{margin:0;font-size:14px}
+    .full{grid-column:span 12}
+    .shot{
+      margin-top:12px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      padding:12px;
+      color:var(--muted2);
+      font-size:13px;
+    }
+    .shot b{color:var(--text)}
+    .btnRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 16px;border-radius:14px;border:1px solid rgba(0,255,170,.35);
+      background:linear-gradient(135deg, rgba(0,255,170,.16), rgba(124,92,255,.10));
+      font-weight:900;
+      box-shadow:0 0 0 6px rgba(0,255,170,.06), 0 20px 42px rgba(0,0,0,.35);
+    }
+    .btn:hover{box-shadow:0 0 0 7px rgba(0,255,170,.075), 0 22px 44px rgba(0,0,0,.38)}
+    .note{margin-top:10px;color:var(--muted2);font-size:13px;line-height:1.5}
+    @media (max-width:820px){ .card{grid-column:span 12} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand"><div class="mark">🐆</div><div>Panther Trading</div></div>
+      <div class="nav">
+        <a href="/">Home</a>
+        <a href="/download/">Download</a>
+        <a href="https://github.com/panthertrading/PantherTrading" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <h1>Panther Edge</h1>
+      <p>
+        Edge doesn’t “make the signal bullish.” It tells you <b>why</b> Panther is confident, <b>why</b> risk flags exist,
+        and <b>why</b> entry guidance changed — verified by the server.
+      </p>
+
+      <div class="btnRow">
+        <a class="btn" href="/download/">⬇️ Download Panther</a>
+      </div>
+
+      <div class="note">
+        The server is the source of truth. If you’re not entitled, you don’t get Edge. Cracking the UI does nothing.
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Confidence (why)</h3>
+        <p>Explanation for why confidence is high/low — with drivers (volume behavior, structure, liquidity, trend).</p>
+      </div>
+
+      <div class="card">
+        <h3>Risk (why)</h3>
+        <p>Explanation for rug/bundler/whale flags — what triggered it and what that means.</p>
+      </div>
+
+      <div class="card">
+        <h3>Entry (why)</h3>
+        <p>Explanation for CHASE / WAIT / PULLBACK / CATCH_FALLING — and the conditions that would change it.</p>
+      </div>
+
+      <div class="card">
+        <h3>Fast + protected</h3>
+        <p>Edge Extras are cached for speed (so your UI doesn’t spam the server), and requests are server-gated.</p>
+      </div>
+
+      <div class="card full">
+        <h3 style="margin:0 0 8px">Screenshots</h3>
+        <p style="margin:0;color:#a9b4d6">Add your UI images here later. For now, this page is ready to ship.</p>
+
+        <div class="shot">
+          <b>TODO:</b> Add images under <code>/assets/</code> and embed them here.
+          <br/><br/>
+          Recommended filenames:
+          <ul style="margin:8px 0 0; padding-left:18px">
+            <li><code>assets/edge-extras-1.png</code> (full details view)</li>
+            <li><code>assets/edge-extras-2.png</code> (Edge card close-up)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:18px">
+      ⚠️ Crypto is risky. Panther is an intelligence tool, not financial advice.
+    </div>
+  </div>
+</body>
+</html>
