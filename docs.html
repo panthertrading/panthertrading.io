@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panther Trading — Tutorial</title>
+  <meta name="description" content="A visual tutorial for using Panther Trading: quick start, signals, risks, monitoring, and Free vs Edge." />
+
+  <style>
+    :root{
+      --bg: #0b0f17;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.09);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --border: rgba(255,255,255,.12);
+      --accent: #7dd3fc;
+      --accent2: #a78bfa;
+      --good: #22c55e;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --max: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    body{
+      margin: 0;
+      background: radial-gradient(900px 600px at 20% -10%, rgba(125,211,252,.18), transparent 60%),
+                  radial-gradient(900px 600px at 90% 0%, rgba(167,139,250,.16), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .container{ max-width: var(--max); margin: 0 auto; padding: 24px; }
+    .topbar{
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(11,15,23,.72);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding: 14px 24px; max-width: var(--max); margin:0 auto; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight: 700; letter-spacing: .2px; }
+    .brand-badge{
+      width: 28px; height: 28px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(125,211,252,.32), rgba(167,139,250,.30));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .nav{ display:flex; align-items:center; gap: 10px; flex-wrap: wrap; justify-content:flex-end; }
+    .nav a{ padding: 8px 10px; border-radius: 10px; color: var(--muted); }
+    .nav a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+    }
+    .btn:hover{ background: rgba(255,255,255,.09); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(125,211,252,.22), rgba(167,139,250,.18));
+      border-color: rgba(125,211,252,.22);
+    }
+
+    .hero{
+      padding: 34px 0 18px;
+    }
+    .hero h1{
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.12;
+      letter-spacing: -0.6px;
+    }
+    .hero p{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 60ch;
+    }
+    .hero-actions{ display:flex; gap: 10px; flex-wrap: wrap; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin: 18px 0 0;
+    }
+    @media (min-width: 900px){
+      .grid.two{ grid-template-columns: 1fr 1fr; }
+      .grid.three{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .card{
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .head{
+      padding: 16px 16px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display:flex; align-items:flex-start; justify-content:space-between; gap: 12px;
+    }
+    .card .head h2, .card .head h3{
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: .2px;
+    }
+    .card .body{ padding: 14px 16px 16px; color: var(--muted); }
+    .pill{
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .step{
+      display:flex; gap: 14px; align-items:flex-start;
+      padding: 14px 16px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .step:first-child{ border-top: 0; }
+    .num{
+      width: 28px; height: 28px;
+      border-radius: 10px;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(125,211,252,.15);
+      border: 1px solid rgba(125,211,252,.18);
+      color: var(--text);
+      font-weight: 700;
+      flex: 0 0 28px;
+    }
+    .step h4{ margin: 0 0 4px; color: var(--text); }
+    .step p{ margin: 0; }
+
+    .placeholder{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 16px;
+    }
+    .shot{
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,.20);
+      background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      display:flex; align-items:center; justify-content:center;
+      color: rgba(255,255,255,.55);
+      font-size: 13px;
+      text-align:center;
+      padding: 18px;
+    }
+
+    .signals{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .signal{
+      display:flex; align-items:flex-start; gap: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+    }
+    .dot{ width: 10px; height: 10px; border-radius: 999px; margin-top: 6px; flex: 0 0 10px; }
+    .dot.good{ background: var(--good); }
+    .dot.warn{ background: var(--warn); }
+    .dot.bad{ background: var(--bad); }
+    .dot.purple{ background: var(--accent2); }
+
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      overflow:hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    th, td{
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      text-align: left;
+      vertical-align: top;
+    }
+    th{ color: var(--text); background: rgba(255,255,255,.05); font-size: 13px; }
+    td{ color: var(--muted); }
+    tr:last-child td{ border-bottom: 0; }
+
+    .footer{
+      margin-top: 34px;
+      padding: 26px 0 50px;
+      color: rgba(255,255,255,.55);
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+    .small{ font-size: 13px; color: rgba(255,255,255,.62); }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.8);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./index.html" aria-label="Panther Trading Home">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>Panther Trading</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="./index.html">Home</a>
+        <a href="./docs.html" style="color: var(--text); background: rgba(255,255,255,.06);">How It Works</a>
+        <a href="./#pricing">Pricing</a>
+        <a href="./#download">Download</a>
+        <a class="btn primary" href="./#download">Get Panther</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <h1>How to use Panther (without the technical headache)</h1>
+      <p>
+        Panther is built to help you make faster, cleaner decisions on Solana tokens — by analyzing behavior, risk, and momentum.
+        This guide shows what each screen means and how to use it confidently.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#quickstart">Start the tutorial</a>
+        <a class="btn" href="#signals">Understand signals</a>
+        <a class="btn" href="#free-vs-edge">Free vs Edge</a>
+      </div>
+      <p class="small" style="margin-top: 14px;">
+        Tip: You can add screenshots later — look for the <span class="kbd">[Screenshot Placeholder]</span> boxes.
+      </p>
+    </section>
+
+    <!-- Quick Start -->
+    <section id="quickstart" class="card">
+      <div class="head">
+        <h2>Quick Start</h2>
+        <span class="pill">Most important section</span>
+      </div>
+
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <h4>Add a token (contract address)</h4>
+          <p>Paste a Solana contract address and Panther will analyze it. If it’s invalid, you’ll get a clear error message.</p>
+        </div>
+      </div>
+
+      <div class="placeholder">
+        <div class="shot">[Screenshot Placeholder] — “Add CA” input + Analyze/Add button</div>
+      </div>
+
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h4>Read the signal card</h4>
+          <p>Signals are not “guaranteed profit.” They represent how strongly the data aligns with a favorable setup.</p>
+        </div>
+      </div>
+
+      <div class="placeholder">
+        <div class="shot">[Screenshot Placeholder] — A signal card (STRONG BUY / WAIT / DON’T INVEST)</div>
+      </div>
+
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h4>Monitor it (get updates without spam)</h4>
+          <p>Monitoring tracks changes over time. Start/Stop monitoring whenever you want.</p>
+        </div>
+      </div>
+
+      <div class="placeholder">
+        <div class="shot">[Screenshot Placeholder] — Monitor Start/Stop + Scan interval dropdown</div>
+      </div>
+    </section>
+
+    <!-- Signals -->
+    <section id="signals" class="grid two">
+      <div class="card">
+        <div class="head">
+          <h2>What signals mean</h2>
+          <span class="pill">Plain English</span>
+        </div>
+        <div class="body">
+          <div class="signals">
+            <div class="signal">
+              <span class="dot good"></span>
+              <div>
+                <strong>STRONG BUY</strong>
+                <div class="small">High alignment + healthier structure. Still manage risk.</div>
+              </div>
+            </div>
+            <div class="signal">
+              <span class="dot warn"></span>
+              <div>
+                <strong>WAIT / WATCH</strong>
+                <div class="small">Early or unclear. Wait for confirmation.</div>
+              </div>
+            </div>
+            <div class="signal">
+              <span class="dot bad"></span>
+              <div>
+                <strong>DON’T INVEST</strong>
+                <div class="small">Structural risk detected. Avoid chasing.</div>
+              </div>
+            </div>
+            <div class="signal">
+              <span class="dot purple"></span>
+              <div>
+                <strong>DEGEN BUY</strong>
+                <div class="small">High risk / high variance. Only for aggressive traders.</div>
+              </div>
+            </div>
+          </div>
+          <p style="margin-top: 12px;">
+            The goal is to avoid bad trades first — then catch the good ones.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head">
+          <h2>Confidence & phase</h2>
+          <span class="pill">How to interpret</span>
+        </div>
+        <div class="body">
+          <p><strong>Confidence</strong> is how strongly the data supports the current signal.</p>
+          <p><strong>Phase</strong> explains where the token is in its lifecycle (early discovery, momentum, distribution, etc.).</p>
+          <div class="placeholder" style="padding: 0; border-top: 0;">
+            <div class="shot">[Screenshot Placeholder] — Confidence + Phase area</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Risks -->
+    <section id="risks" class="card" style="margin-top:16px;">
+      <div class="head">
+        <h2>Risk indicators (what they mean)</h2>
+        <span class="pill">Trust builder</span>
+      </div>
+      <div class="body">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 28%;">Indicator</th>
+              <th>What it usually implies</th>
+              <th style="width: 28%;">What you should do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Rug Risk</strong></td>
+              <td>Liquidity / ownership patterns that often precede rugs.</td>
+              <td>Reduce exposure or avoid completely.</td>
+            </tr>
+            <tr>
+              <td><strong>Bundler Risk</strong></td>
+              <td>Wallet clustering / patterns suggesting manipulation.</td>
+              <td>Be cautious with entries; watch exits closely.</td>
+            </tr>
+            <tr>
+              <td><strong>Whale Risk</strong></td>
+              <td>Large holders can dump hard and fast.</td>
+              <td>Prefer small sizing, tighter exits.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="placeholder">
+          <div class="shot">[Screenshot Placeholder] — Risk pills (Rug/Bundler/Whale) on a card</div>
+        </div>
+
+        <p class="small" style="margin-top: 10px;">
+          Note: No tool is perfect. Panther reduces risk — it does not eliminate it.
+        </p>
+      </div>
+    </section>
+
+    <!-- Free vs Edge -->
+    <section id="free-vs-edge" class="grid two" style="margin-top:16px;">
+      <div class="card">
+        <div class="head">
+          <h2>Free vs Edge</h2>
+          <span class="pill">Simple comparison</span>
+        </div>
+        <div class="body">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Free</th>
+                <th>Edge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Max tokens</td>
+                <td>2</td>
+                <td>Higher limits</td>
+              </tr>
+              <tr>
+                <td>Profiles</td>
+                <td>Safe only</td>
+                <td>Safe / Balanced / Aggro</td>
+              </tr>
+              <tr>
+                <td>Scan speed</td>
+                <td>Slower floor</td>
+                <td>Faster intervals</td>
+              </tr>
+              <tr>
+                <td>Best for</td>
+                <td>Trying Panther</td>
+                <td>Daily use / serious scanning</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 12px;">
+            If you’re consistently watching multiple tokens, Edge pays for itself by saving time and avoiding traps.
+          </p>
+          <a class="btn primary" href="./#pricing">See Edge pricing</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head">
+          <h2>FAQ</h2>
+          <span class="pill">Cuts support tickets</span>
+        </div>
+        <div class="body">
+          <p><strong>Is Panther a trading bot?</strong><br/>No. Panther analyzes and monitors. You decide what to do.</p>
+          <p><strong>Does Panther auto-buy?</strong><br/>No.</p>
+          <p><strong>Is this financial advice?</strong><br/>No. This is a decision-support tool.</p>
+          <p><strong>Why didn’t Panther flag a rug?</strong><br/>No tool catches everything. Use signals + risk pills + common sense.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advanced / Reference -->
+    <section class="card" style="margin-top:16px;">
+      <div class="head">
+        <h2>Advanced reference (optional)</h2>
+        <span class="pill">Power users</span>
+      </div>
+      <div class="body">
+        <p>
+          Want the technical details? We keep a deeper reference for advanced users.
+        </p>
+        <p class="small">
+          Placeholder link (you can replace later): <a href="./advanced.html" style="color: var(--accent);">Advanced documentation</a>
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="small">
+        © <span id="y"></span> Panther Trading. Built for faster, safer decision-making — not hype chasing.
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
