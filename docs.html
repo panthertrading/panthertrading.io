@@ -8,14 +8,14 @@
 
   <style>
     :root{
-      --bg: #0b0f17;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.09);
+      --bg: #0b1020;
+      --panel: #0d1628;
+      --panel2: #0a1324;
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.68);
       --border: rgba(255,255,255,.12);
-      --accent: #7dd3fc;
-      --accent2: #a78bfa;
+      --accent: #00ffaa;
+      --accent2: #5f4bff;
       --good: #22c55e;
       --warn: #f59e0b;
       --bad: #ef4444;
@@ -27,8 +27,8 @@
     * { box-sizing: border-box; }
     body{
       margin: 0;
-      background: radial-gradient(900px 600px at 20% -10%, rgba(125,211,252,.18), transparent 60%),
-                  radial-gradient(900px 600px at 90% 0%, rgba(167,139,250,.16), transparent 55%),
+      background: radial-gradient(900px 600px at 18% -12%, rgba(0,255,170,.10), transparent 60%),
+                  radial-gradient(900px 600px at 92% -6%, rgba(95,75,255,.10), transparent 55%),
                   var(--bg);
       color: var(--text);
       font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
@@ -39,14 +39,14 @@
     .topbar{
       position: sticky; top: 0; z-index: 20;
       backdrop-filter: blur(12px);
-      background: rgba(11,15,23,.72);
+      background: rgba(11,16,32,.78);
       border-bottom: 1px solid var(--border);
     }
     .topbar-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding: 14px 24px; max-width: var(--max); margin:0 auto; }
     .brand{ display:flex; align-items:center; gap:10px; font-weight: 700; letter-spacing: .2px; }
     .brand-badge{
       width: 28px; height: 28px; border-radius: 10px;
-      background: linear-gradient(135deg, rgba(125,211,252,.32), rgba(167,139,250,.30));
+      background: linear-gradient(135deg, rgba(0,255,170,.35), rgba(95,75,255,.28));
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
     }
@@ -64,9 +64,13 @@
     }
     .btn:hover{ background: rgba(255,255,255,.09); }
     .btn.primary{
-      background: linear-gradient(135deg, rgba(125,211,252,.22), rgba(167,139,250,.18));
-      border-color: rgba(125,211,252,.22);
+      background: linear-gradient(90deg, #00ffaa, #00d68f);
+      border-color: rgba(0,255,170,.28);
+      color: rgba(6,10,18,.92);
+      font-weight: 700;
+      box-shadow: 0 0 0 6px rgba(0,255,170,.10), 0 22px 48px rgba(0,0,0,.45);
     }
+    .btn.primary:hover{ filter: brightness(1.03); }
 
     .hero{
       padding: 34px 0 18px;
@@ -97,8 +101,8 @@
     }
 
     .card{
-      background: var(--panel);
-      border: 1px solid var(--border);
+      background: rgba(13,22,40,.82);
+      border: 1px solid rgba(255,255,255,.10);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
@@ -119,7 +123,7 @@
       padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.05);
+      background: rgba(255,255,255,.04);
       color: var(--muted);
       white-space: nowrap;
     }
@@ -134,8 +138,8 @@
       width: 28px; height: 28px;
       border-radius: 10px;
       display:flex; align-items:center; justify-content:center;
-      background: rgba(125,211,252,.15);
-      border: 1px solid rgba(125,211,252,.18);
+      background: rgba(0,255,170,.14);
+      border: 1px solid rgba(0,255,170,.18);
       color: var(--text);
       font-weight: 700;
       flex: 0 0 28px;
@@ -170,7 +174,7 @@
       padding: 12px 12px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
+      background: rgba(255,255,255,.04);
     }
     .dot{ width: 10px; height: 10px; border-radius: 999px; margin-top: 6px; flex: 0 0 10px; }
     .dot.good{ background: var(--good); }
@@ -191,7 +195,7 @@
       text-align: left;
       vertical-align: top;
     }
-    th{ color: var(--text); background: rgba(255,255,255,.05); font-size: 13px; }
+    th{ color: var(--text); background: rgba(255,255,255,.04); font-size: 13px; }
     td{ color: var(--muted); }
     tr:last-child td{ border-bottom: 0; }
 
