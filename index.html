@@ -200,6 +200,21 @@
     .card p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
     .full{grid-column:span 12}
 
+
+    /* Nested section cards */
+    .nestGrid{margin-top:12px;display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+    .nestCard{
+      grid-column:span 6;
+      padding:16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      box-shadow:0 10px 28px rgba(0,0,0,.18);
+    }
+    .nestCard h3{margin:0 0 8px;font-size:16px;letter-spacing:-.2px}
+    .nestCard p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+
+
     .iconTitle{display:flex;align-items:center;gap:10px}
     .icon{
       width:34px;height:34px;border-radius:12px;
@@ -373,39 +388,52 @@
           <h2>What Panther does</h2>
           <div class="small">Clarity first — no noise, no hype.</div>
         </div>
-      </div>
 
-      <div class="card">
-        <div class="iconTitle">
-          <div class="icon glowB">🔎</div>
-          <h3>Finds early setups</h3>
-        </div>
-        <p>
-          Tracks behavior, liquidity, and momentum to surface setups before they get noisy — and keeps updating as conditions change.
-        </p>
-      </div>
+        <div class="nestGrid" role="list" aria-label="Panther capabilities">
+          <div class="nestCard" role="listitem">
+            <div class="iconTitle">
+              <div class="icon glowB">🔎</div>
+              <h3>Finds early setups</h3>
+            </div>
+            <p>
+              Tracks behavior, liquidity, and momentum to surface setups before they get noisy — and keeps updating as conditions change.
+            </p>
+          </div>
 
-      <div class="card">
-        <div class="iconTitle">
-          <div class="icon glowA">🛡️</div>
-          <h3>Surfaces risk clearly</h3>
-        </div>
-        <p>
-          Flags common trap patterns (rug risk, bundlers, whale pressure) so you can avoid bad entries and obvious landmines.
-        </p>
-      </div>
+          <div class="nestCard" role="listitem">
+            <div class="iconTitle">
+              <div class="icon glowA">🛡️</div>
+              <h3>Surfaces risk clearly</h3>
+            </div>
+            <p>
+              Flags common trap patterns (rug risk, bundlers, whale pressure) so you can avoid bad entries and obvious landmines.
+            </p>
+          </div>
 
-      <div class="card">
-        <div class="iconTitle">
-          <div class="icon glowB">🛰️</div>
-          <h3>Monitors without spam</h3>
+          <div class="nestCard" role="listitem">
+            <div class="iconTitle">
+              <div class="icon glowB">🛰️</div>
+              <h3>Monitors without spam</h3>
+            </div>
+            <p>
+              Add a token once and Panther watches it for you — signals, metrics, and risk stay in sync without turning your screen into chaos.
+            </p>
+          </div>
+
+          <div class="nestCard" role="listitem">
+            <div class="iconTitle">
+              <div class="icon glowA">🧠</div>
+              <h3>Intelligence, not autopilot</h3>
+            </div>
+            <p>
+              Panther turns noise into readable decisions — but it never buys or sells for you. You stay in control of every trade.
+            </p>
+          </div>
         </div>
-        <p>
-          Add a token once and Panther watches it for you — signals, metrics, and risk stay in sync without turning your screen into chaos.
-        </p>
       </div>
 
       <!-- Comparison table -->
+
 
       <div class="card full" id="free-vs-edge">
         <div class="sectionTitle">
