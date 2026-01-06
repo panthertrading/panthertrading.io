@@ -8,14 +8,16 @@
 
   <style>
     :root{
-      --bg: #0b1020;
-      --panel: #0d1628;
-      --panel2: #0a1324;
+      --line: rgba(255,255,255,.085);
+
+      --bg: #070b14;
+      --panel: #0c1426;
+      --panel2: #0b1020;
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.68);
-      --border: rgba(255,255,255,.12);
+      --border: rgba(255,255,255,.085);
       --accent: #00ffaa;
-      --accent2: #5f4bff;
+      --accent2: #7c5cff;
       --good: #22c55e;
       --warn: #f59e0b;
       --bad: #ef4444;
@@ -25,21 +27,25 @@
     }
 
     * { box-sizing: border-box; }
+    
     body{
       margin: 0;
-      background: radial-gradient(900px 600px at 18% -12%, rgba(0,255,170,.10), transparent 60%),
-                  radial-gradient(900px 600px at 92% -6%, rgba(95,75,255,.10), transparent 55%),
-                  var(--bg);
+      background:
+        radial-gradient(900px 600px at 18% 0%, rgba(124,92,255,.22), transparent 62%),
+        radial-gradient(800px 520px at 80% 10%, rgba(0,255,170,.16), transparent 60%),
+        radial-gradient(650px 520px at 70% 90%, rgba(124,92,255,.12), transparent 62%),
+        var(--bg);
       color: var(--text);
       font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow-x: hidden;
     }
 
-    a{ color: inherit; text-decoration: none; }
+a{ color: inherit; text-decoration: none; }
     .container{ max-width: var(--max); margin: 0 auto; padding: 24px; }
     .topbar{
       position: sticky; top: 0; z-index: 20;
       backdrop-filter: blur(12px);
-      background: rgba(11,16,32,.78);
+      background: rgba(11,16,32,.72);
       border-bottom: 1px solid var(--border);
     }
     .topbar-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding: 14px 24px; max-width: var(--max); margin:0 auto; }
@@ -50,21 +56,9 @@
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
     }
-    
-    .nav{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-weight:800;font-size:14px}
-    .nav a{
-      padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.03);
-    }
-    .nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
-    .nav a.active{
-      color:var(--text);
-      border-color:rgba(0,255,170,.28);
-      background:linear-gradient(135deg, rgba(0,255,170,.10), rgba(124,92,255,.08));
-      box-shadow:0 0 0 5px rgba(0,255,170,.05);
-    }
-
-
+    .nav{ display:flex; align-items:center; gap: 10px; flex-wrap: wrap; justify-content:flex-end; }
+    .nav a{ padding: 8px 10px; border-radius: 10px; color: var(--muted); }
+    .nav a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       padding: 10px 12px;
@@ -112,14 +106,16 @@
       .grid.three{ grid-template-columns: 1fr 1fr 1fr; }
     }
 
+    
     .card{
-      background: rgba(13,22,40,.82);
-      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10,16,32,.62);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: 0 10px 28px rgba(0,0,0,.22);
       overflow:hidden;
     }
-    .card .head{
+
+.card .head{
       padding: 16px 16px 10px;
       border-bottom: 1px solid rgba(255,255,255,.08);
       display:flex; align-items:flex-start; justify-content:space-between; gap: 12px;
@@ -236,14 +232,6 @@
       background: rgba(255,255,255,.06);
       color: rgba(255,255,255,.8);
     }
-  
-    .nav a.active{
-      color: var(--text);
-      border-color: rgba(0,255,170,.28);
-      background: linear-gradient(135deg, rgba(0,255,170,.10), rgba(124,92,255,.08));
-      box-shadow: 0 0 0 5px rgba(0,255,170,.05);
-    }
-
   </style>
 </head>
 
@@ -251,20 +239,17 @@
   <!-- Top bar -->
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="/index.html" aria-label="Panther Trading Home">
+      <a class="brand" href="./index.html" aria-label="Panther Trading Home">
         <span class="brand-badge" aria-hidden="true"></span>
         <span>Panther Trading</span>
       </a>
 
       <nav class="nav" aria-label="Primary">
-        
-        <a href="/index.html">Home</a>
-        <a href="/edge/edgeindex.html">Edge</a>
-        <a href="/download/downloadIndex">Download</a>
-        <a class="active" href="/docs">Docs</a>
-        <a href="https://x.com/PantherScan" target="_blank" rel="noreferrer">X</a>
-        <a href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">Telegram</a>
-      
+        <a href="./index.html">Home</a>
+        <a href="./docs.html" style="color: var(--text); background: rgba(255,255,255,.06);">How It Works</a>
+        <a href="./#pricing">Pricing</a>
+        <a href="./#download">Download</a>
+        <a class="btn primary" href="./#download">Get Panther</a>
       </nav>
     </div>
   </header>
