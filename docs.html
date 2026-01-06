@@ -8,14 +8,14 @@
 
   <style>
     :root{
-      --bg: #0b1020;
-      --panel: #0d1628;
-      --panel2: #0a1324;
+      --bg: #0b0f17;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.09);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.68);
       --border: rgba(255,255,255,.12);
-      --accent: #00ffaa;
-      --accent2: #5f4bff;
+      --accent: #7dd3fc;
+      --accent2: #a78bfa;
       --good: #22c55e;
       --warn: #f59e0b;
       --bad: #ef4444;
@@ -27,8 +27,8 @@
     * { box-sizing: border-box; }
     body{
       margin: 0;
-      background: radial-gradient(900px 600px at 18% -12%, rgba(0,255,170,.10), transparent 60%),
-                  radial-gradient(900px 600px at 92% -6%, rgba(95,75,255,.10), transparent 55%),
+      background: radial-gradient(900px 600px at 20% -10%, rgba(125,211,252,.18), transparent 60%),
+                  radial-gradient(900px 600px at 90% 0%, rgba(167,139,250,.16), transparent 55%),
                   var(--bg);
       color: var(--text);
       font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
@@ -39,14 +39,14 @@
     .topbar{
       position: sticky; top: 0; z-index: 20;
       backdrop-filter: blur(12px);
-      background: rgba(11,16,32,.78);
+      background: rgba(11,15,23,.72);
       border-bottom: 1px solid var(--border);
     }
     .topbar-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding: 14px 24px; max-width: var(--max); margin:0 auto; }
     .brand{ display:flex; align-items:center; gap:10px; font-weight: 700; letter-spacing: .2px; }
     .brand-badge{
       width: 28px; height: 28px; border-radius: 10px;
-      background: linear-gradient(135deg, rgba(0,255,170,.35), rgba(95,75,255,.28));
+      background: linear-gradient(135deg, rgba(125,211,252,.32), rgba(167,139,250,.30));
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
     }
@@ -64,13 +64,9 @@
     }
     .btn:hover{ background: rgba(255,255,255,.09); }
     .btn.primary{
-      background: linear-gradient(90deg, #00ffaa, #00d68f);
-      border-color: rgba(0,255,170,.28);
-      color: rgba(6,10,18,.92);
-      font-weight: 700;
-      box-shadow: 0 0 0 6px rgba(0,255,170,.10), 0 22px 48px rgba(0,0,0,.45);
+      background: linear-gradient(135deg, rgba(125,211,252,.22), rgba(167,139,250,.18));
+      border-color: rgba(125,211,252,.22);
     }
-    .btn.primary:hover{ filter: brightness(1.03); }
 
     .hero{
       padding: 34px 0 18px;
@@ -101,8 +97,8 @@
     }
 
     .card{
-      background: rgba(13,22,40,.82);
-      border: 1px solid rgba(255,255,255,.10);
+      background: var(--panel);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
@@ -123,7 +119,7 @@
       padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.04);
+      background: rgba(255,255,255,.05);
       color: var(--muted);
       white-space: nowrap;
     }
@@ -138,8 +134,8 @@
       width: 28px; height: 28px;
       border-radius: 10px;
       display:flex; align-items:center; justify-content:center;
-      background: rgba(0,255,170,.14);
-      border: 1px solid rgba(0,255,170,.18);
+      background: rgba(125,211,252,.15);
+      border: 1px solid rgba(125,211,252,.18);
       color: var(--text);
       font-weight: 700;
       flex: 0 0 28px;
@@ -174,7 +170,7 @@
       padding: 12px 12px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      background: rgba(255,255,255,.05);
     }
     .dot{ width: 10px; height: 10px; border-radius: 999px; margin-top: 6px; flex: 0 0 10px; }
     .dot.good{ background: var(--good); }
@@ -195,7 +191,7 @@
       text-align: left;
       vertical-align: top;
     }
-    th{ color: var(--text); background: rgba(255,255,255,.04); font-size: 13px; }
+    th{ color: var(--text); background: rgba(255,255,255,.05); font-size: 13px; }
     td{ color: var(--muted); }
     tr:last-child td{ border-bottom: 0; }
 
@@ -222,19 +218,20 @@
   <!-- Top bar -->
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="./index.html" aria-label="Panther Trading Home">
+      <a class="brand" href="/" aria-label="Panther Trading Home">
         <span class="brand-badge" aria-hidden="true"></span>
         <span>Panther Trading</span>
       </a>
 
       <nav class="nav" aria-label="Primary">
-        <a href="./index.html">Home</a>
-        <a href="./docs.html" style="color: var(--text); background: rgba(255,255,255,.06);">Docs</a>
-        <a href="./edgeindex.html">Edge</a>
-        <a href="./downloadIndex.html">Download</a>
-        <a href="https://x.com/PantherScan" target="_blank" rel="noreferrer">X</a>
-        <a href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">Telegram</a>
-        <a class="btn primary" href="./downloadIndex.html">Get Panther</a>
+        <a  href="/">Home</a>
+        <a class="active" href="/docs.html">Docs</a>
+        <a  href="/edge/edgeindex.html">Edge</a>
+        <a  href="/download/downloadindex.html">Download</a>
+        <a target="_blank" rel="noreferrer" href="https://x.com/PantherScan">X</a>
+        <a target="_blank" rel="noreferrer" href="https://t.me/PantherEdge">Telegram</a>
+        <a target="_blank" rel="noreferrer" href="https://github.com/panthertrading/PantherTrading">GitHub</a>
+        <a class="btn primary" href="/download/downloadindex.html">Get Panther</a>
       </nav>
     </div>
   </header>
@@ -253,43 +250,16 @@
         <a class="btn" href="#free-vs-edge">Free vs Edge</a>
       </div>
       <p class="small" style="margin-top: 14px;">
-        
-        </div>
-      </div>
-
-      <div class="shotbox"><img src="Assets/1.png" alt="Add token input" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
-      </div>
-
-      <div class="step">
-        <div class="num">2</div>
-        <div>
-          <h4>Read the signal card</h4>
-          <p>Signals are not “guaranteed profit.” They represent how strongly the data aligns with a favorable setup.</p>
-        </div>
-      </div>
-
-      <div class="shotbox"><img src="Assets/3.png" alt="Monitoring controls" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
-      </div>
-
-      <div class="step">
-        <div class="num">3</div>
-        <div>
-          <h4>Monitor it (get updates without spam)</h4>
-          <p>Monitoring tracks changes over time. Start/Stop monitoring whenever you want.</p>
-        </div>
-      </div>
-
-      <div class="shotbox"><img src="Assets/2.png" alt="Signal card example" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
-      </div>
+        Tip: You can add screenshots later — look for the <span class="kbd">[Screenshot Placeholder]</span> boxes.
+      </p>
     </section>
-
-    
 
     <!-- Quick Start -->
     <section id="quickstart" class="card">
       <div class="head">
         <h2>Quick Start</h2>
-</div>
+        <span class="pill">Most important section</span>
+      </div>
 
       <div class="step">
         <div class="num">1</div>
@@ -300,7 +270,7 @@
       </div>
 
       <div class="placeholder">
-        <img class="shot-img" src="./Assets/1.png" alt="Panther tutorial screenshot 1" loading="lazy" />
+        <div class="shot">[Screenshot Placeholder] — “Add CA” input + Analyze/Add button</div>
       </div>
 
       <div class="step">
@@ -312,7 +282,7 @@
       </div>
 
       <div class="placeholder">
-        <img class="shot-img" src="./Assets/2.png" alt="Panther tutorial screenshot 2" loading="lazy" />
+        <div class="shot">[Screenshot Placeholder] — A signal card (STRONG BUY / WAIT / DON’T INVEST)</div>
       </div>
 
       <div class="step">
@@ -324,15 +294,17 @@
       </div>
 
       <div class="placeholder">
-        <img class="shot-img" src="./Assets/3.png" alt="Panther tutorial screenshot 3" loading="lazy" />
+        <div class="shot">[Screenshot Placeholder] — Monitor Start/Stop + Scan interval dropdown</div>
       </div>
     </section>
 
-<!-- Signals -->
+    <!-- Signals -->
     <section id="signals" class="grid two">
       <div class="card">
         <div class="head">
-          <h2>What signals mean</h2></div>
+          <h2>What signals mean</h2>
+          <span class="pill">Plain English</span>
+        </div>
         <div class="body">
           <div class="signals">
             <div class="signal">
@@ -372,11 +344,14 @@
 
       <div class="card">
         <div class="head">
-          <h2>Confidence & phase</h2></div>
+          <h2>Confidence & phase</h2>
+          <span class="pill">How to interpret</span>
+        </div>
         <div class="body">
           <p><strong>Confidence</strong> is how strongly the data supports the current signal.</p>
           <p><strong>Phase</strong> explains where the token is in its lifecycle (early discovery, momentum, distribution, etc.).</p>
-          <div class="shotbox"><img src="Assets/4.png" alt="Confidence and phase" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
+          <div class="placeholder" style="padding: 0; border-top: 0;">
+            <div class="shot">[Screenshot Placeholder] — Confidence + Phase area</div>
           </div>
         </div>
       </div>
@@ -385,7 +360,9 @@
     <!-- Risks -->
     <section id="risks" class="card" style="margin-top:16px;">
       <div class="head">
-        <h2>Risk indicators (what they mean)</h2></div>
+        <h2>Risk indicators (what they mean)</h2>
+        <span class="pill">Trust builder</span>
+      </div>
       <div class="body">
         <table>
           <thead>
@@ -414,7 +391,8 @@
           </tbody>
         </table>
 
-        <div class="shotbox"><img src="Assets/3.png" alt="Monitoring controls" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
+        <div class="placeholder">
+          <div class="shot">[Screenshot Placeholder] — Risk pills (Rug/Bundler/Whale) on a card</div>
         </div>
 
         <p class="small" style="margin-top: 10px;">
@@ -427,7 +405,9 @@
     <section id="free-vs-edge" class="grid two" style="margin-top:16px;">
       <div class="card">
         <div class="head">
-          <h2>Free vs Edge</h2></div>
+          <h2>Free vs Edge</h2>
+          <span class="pill">Simple comparison</span>
+        </div>
         <div class="body">
           <table>
             <thead>
@@ -463,7 +443,7 @@
           <p style="margin-top: 12px;">
             If you’re consistently watching multiple tokens, Edge pays for itself by saving time and avoiding traps.
           </p>
-          <a class="btn primary" href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">Get Edge (message me)</a>
+          <a class="btn primary" href="./#pricing">See Edge pricing</a>
         </div>
       </div>
 
@@ -483,12 +463,17 @@
 
     <!-- Advanced / Reference -->
     <section class="card" style="margin-top:16px;">
-      <div class="row">
-        <div>
-          <h2>Need help?</h2>
-          <p>If you want <strong>Panther Edge</strong> activated, or you’re stuck on something, message me and I’ll help you get set up.</p>
-          <p class="muted">X: <a href="https://x.com/PantherScan" target="_blank" rel="noreferrer">@PantherScan</a> · Telegram: <a href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">@PantherEdge</a></p>
-        </div>
+      <div class="head">
+        <h2>Advanced reference (optional)</h2>
+        <span class="pill">Power users</span>
+      </div>
+      <div class="body">
+        <p>
+          Want the technical details? We keep a deeper reference for advanced users.
+        </p>
+        <p class="small">
+          Placeholder link (you can replace later): <a href="./advanced.html" style="color: var(--accent);">Advanced documentation</a>
+        </p>
       </div>
     </section>
 
