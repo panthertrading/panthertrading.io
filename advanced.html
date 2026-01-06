@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#0b1020" name="theme-color"/>
+<title>Panther Trading — Advanced Documentation</title>
+<meta content="Advanced reference for Panther: signals, confidence, phases, risk flags, monitoring behavior, and Edge (high-level, no trade secrets)." name="description"/>
+<style>
+    :root{
+      --bg:#070b14;
+      --panel:#0c1426;
+      --panel2:#0b1020;
+      --text:#e9eefc;
+      --muted:#a9b4d6;
+      --muted2:#7f8ab0;
+      --line:rgba(255,255,255,.085);
+
+      --accent:#00ffaa;
+      --accent2:#7c5cff;
+      --danger:#ff4d6d;
+      --warn:#ffcf5c;
+
+      --radius:18px;
+      --shadow:0 14px 40px rgba(0,0,0,.38);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(900px 600px at 18% 0%, rgba(124,92,255,.22), transparent 62%),
+        radial-gradient(800px 520px at 80% 10%, rgba(0,255,170,.16), transparent 60%),
+        radial-gradient(650px 520px at 70% 90%, rgba(124,92,255,.12), transparent 62%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:26px 18px 64px}
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.2px}
+    .mark{
+      width:34px;height:34px;border-radius:12px;
+      background:linear-gradient(135deg, rgba(0,255,170,.18), rgba(124,92,255,.18));
+      border:1px solid rgba(255,255,255,.10);
+      display:grid;place-items:center;
+      box-shadow:0 0 0 6px rgba(0,255,170,.05), 0 18px 44px rgba(0,0,0,.35);
+    }
+    .nav{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-weight:800;font-size:14px}
+    .nav a{
+      padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+    }
+    .nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .nav a.active{
+      color:var(--text);
+      border-color:rgba(0,255,170,.28);
+      background:linear-gradient(135deg, rgba(0,255,170,.10), rgba(124,92,255,.08));
+      box-shadow:0 0 0 5px rgba(0,255,170,.05);
+    }
+
+    .hero{
+      position:relative;
+      padding:22px;
+      border-radius:24px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(12,20,38,.80), rgba(10,16,32,.56));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 240px at 30% 15%, rgba(0,255,170,.12), transparent 60%),
+        radial-gradient(520px 240px at 70% 0%, rgba(124,92,255,.14), transparent 58%),
+        radial-gradient(520px 240px at 75% 95%, rgba(0,255,170,.08), transparent 60%);
+      pointer-events:none;
+      filter:blur(.2px);
+    }
+    .heroInner{position:relative}
+
+    .kickers{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.3px;
+      text-transform:uppercase;
+    }
+    .pill .dot{
+      width:7px;height:7px;border-radius:99px;background:rgba(0,255,170,.9);
+      box-shadow:0 0 0 6px rgba(0,255,170,.08);
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:38px;
+      letter-spacing:-.6px;
+      line-height:1.06;
+    }
+    .lead{
+      margin:0;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:16px;
+      max-width:900px;
+    }
+    .lead b{color:var(--text)}
+
+    .ctaRow{
+      margin-top:16px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    /* Neon Download (same vibe as your homepage big button, but not full-width) */
+    .btnNeon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:950;
+      border:1px solid rgba(0,255,170,.34);
+      background:linear-gradient(135deg, rgba(0,255,170,.18), rgba(124,92,255,.10));
+      box-shadow:0 0 0 6px rgba(0,255,170,.06), 0 20px 42px rgba(0,0,0,.36);
+      transform:translateZ(0);
+    }
+    .btnNeon:hover{
+      box-shadow:0 0 0 7px rgba(0,255,170,.075), 0 22px 44px rgba(0,0,0,.40);
+      border-color:rgba(0,255,170,.44);
+    }
+
+    .btnGhost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:900;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+    }
+    .btnGhost:hover{background:rgba(255,255,255,.06)}
+
+    .noteRow{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      color:var(--muted2);
+      font-size:13px;
+      align-items:center;
+    }
+    .noteRow code{color:var(--text)}
+    .sep{opacity:.55}
+
+    /* Content grid */
+    .grid{margin-top:14px;display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+    .card{
+      grid-column:span 6;
+      padding:16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(10,16,32,.62);
+      box-shadow:0 10px 28px rgba(0,0,0,.22);
+    }
+    .card h3{margin:0 0 8px;font-size:16px;letter-spacing:-.2px}
+    .card p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+    .full{grid-column:span 12}
+
+    .iconTitle{display:flex;align-items:center;gap:10px}
+    .icon{
+      width:34px;height:34px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      display:grid;place-items:center;
+      color:var(--text);
+    }
+    .icon.glowA{box-shadow:0 0 0 6px rgba(0,255,170,.06)}
+    .icon.glowB{box-shadow:0 0 0 6px rgba(124,92,255,.08)}
+
+    /* Comparison table card */
+    .sectionTitle{
+      display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .sectionTitle h2{margin:0;font-size:18px;letter-spacing:-.2px}
+    .small{color:var(--muted2);font-size:13px}
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.02);
+    }
+    .table th,.table td{
+      padding:14px 14px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      vertical-align:top;
+      text-align:left;
+    }
+    .table th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.35px;font-weight:950}
+    .table tr:last-child td{border-bottom:none}
+
+    .tag{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      font-weight:950;font-size:12px;letter-spacing:.3px;
+    }
+    .tagFree{border-color:rgba(124,92,255,.30); background:rgba(124,92,255,.10); color:#d8d2ff}
+    .tagEdge{border-color:rgba(0,255,170,.30); background:rgba(0,255,170,.08); color:#bfffea}
+    .tagTease{border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:var(--muted); font-weight:900}
+
+    .fine{margin:10px 0 0;color:var(--muted2);font-size:13px;line-height:1.5}
+
+    /* Proof / screenshots */
+    .proofWrap{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+    .shot{
+      grid-column:span 6;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      overflow:hidden;
+    }
+    .shot img{display:block;width:100%;height:auto}
+    .cap{padding:10px 12px;color:var(--muted2);font-size:13px}
+    .cap strong{color:var(--text)}
+    .todo{
+      margin-top:10px;
+      border-radius:16px;
+      border:1px dashed rgba(255,255,255,.14);
+      padding:12px;
+      color:var(--muted2);
+      background:rgba(255,255,255,.02);
+      font-size:13px;
+      line-height:1.5;
+    }
+    .todo code{color:var(--text)}
+    .todo ul{margin:8px 0 0;padding-left:18px}
+
+    /* FAQ */
+    details{
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.02);
+      border-radius:16px;
+      padding:12px 12px;
+    }
+    details summary{
+      cursor:pointer;
+      font-weight:950;
+      color:var(--text);
+      list-style:none;
+    }
+    details summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.55}
+
+    /* Footer */
+    .footer{
+      margin-top:18px;
+      color:var(--muted2);
+      font-size:13px;
+      line-height:1.5;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      padding-top:8px;
+    }
+    .links{display:flex;gap:10px;flex-wrap:wrap}
+    .links a{
+      padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:900;
+      font-size:13px;
+    }
+    .links a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+
+    @media (max-width:920px){
+      .card{grid-column:span 12}
+      .shot{grid-column:span 12}
+      h1{font-size:34px}
+    }
+
+
+  /* Advanced-only tweaks (small, won’t change your global design) */
+  .toc{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .toc a{padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);color:var(--text);font-weight:900;font-size:13px}
+  .toc a:hover{background:rgba(255,255,255,.06)}
+  .ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:14px;line-height:1.6}
+  .ul li{margin:6px 0}
+  .codeTag{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);color:var(--text)}
+  .callout{margin-top:10px;border-radius:16px;border:1px solid rgba(0,255,170,.18);background:linear-gradient(135deg, rgba(0,255,170,.06), rgba(124,92,255,.04));padding:12px 14px;color:var(--muted);font-size:14px;line-height:1.6}
+  .callout b{color:var(--text)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+<!-- Top bar: matches your index nav (Docs is active) -->
+<div class="top">
+<div class="brand">
+<div class="mark"></div>
+<div class="name">Panther Trading</div>
+</div>
+<nav aria-label="Primary" class="nav">
+<a href="/index.html">Home</a>
+<a href="/edge/edgeindex.html">Edge</a>
+<a href="/download/downloadIndex">Download</a>
+<a class="active" href="/docs">Docs</a>
+<a href="https://x.com/PantherScan" rel="noreferrer" target="_blank">X</a>
+<a href="https://t.me/PantherEdge" rel="noreferrer" target="_blank">Telegram</a>
+</nav>
+</div>
+<!-- Hero -->
+<section class="hero">
+<div class="heroInner">
+<div class="kickers">
+<span class="pill"><span class="dot"></span> Power users</span>
+<span class="pill">High-level reference</span>
+<span class="pill">No trade secrets</span>
+</div>
+<h1>Advanced documentation</h1>
+<p class="lead">
+          This reference explains <b>what Panther is measuring</b>, how to interpret signals, phases, and risk flags,
+          and what Edge adds. We keep implementation details high-level so the exact recipe can’t be copied.
+        </p>
+<div class="ctaRow">
+<a class="btnNeon" href="/download/downloadIndex">⬇️ Download Panther</a>
+<a class="btnGhost" href="/docs">Back to Docs →</a>
+<a class="btnGhost" href="/edge/edgeindex.html">Edge upgrades →</a>
+</div>
+<div class="callout">
+<b>Important:</b> Confidence is <b>data alignment</b> — not profit probability. Panther is an intelligence tool, not financial advice.
+        </div>
+<div aria-label="Table of contents" class="toc">
+<a href="#what">What Panther is</a>
+<a href="#signals">Signals + confidence</a>
+<a href="#phases">Phases</a>
+<a href="#risks">Risk flags</a>
+<a href="#monitoring">Monitoring</a>
+<a href="#profiles">Profiles</a>
+<a href="#edge">What Edge adds</a>
+<a href="#limits">Limitations</a>
+<a href="#glossary">Glossary</a>
+</div>
+</div>
+</section>
+<!-- What -->
+<section aria-label="What Panther is" class="grid" id="what"><div class="card full"><div class="sectionTitle">
+<h2>What Panther is</h2>
+<div class="small">Clear signals from noisy on-chain behavior.</div>
+</div><p class="fine" style="margin-top:0">
+          Panther analyzes Solana tokens for behavior, risk, and momentum. It does <b>not</b> auto-buy or auto-sell.
+        </p><div class="grid" style="margin-top:12px"><div class="card">
+<div class="iconTitle"><div class="icon glowB">🧠</div><h3>Intelligence, not autopilot</h3></div>
+<p>Panther helps you decide <b>when to enter</b>, <b>how to size</b>, or <b>when to avoid</b> — but it never trades for you.</p>
+</div><div class="card">
+<div class="iconTitle"><div class="icon glowA">🔎</div><h3>Pattern + trend awareness</h3></div>
+<p>Signals combine momentum cues, liquidity behavior, volume quality, and risk factors into a readable call you can act on.</p>
+</div><div class="card">
+<div class="iconTitle"><div class="icon glowB">🛡️</div><h3>Protection first</h3></div>
+<p>Risk flags are designed to keep you out of obvious traps. If something looks off, Panther will say so.</p>
+</div></div></div></section>
+<!-- Signals -->
+<section aria-label="Signals and confidence" class="grid" id="signals"><div class="card full"><div class="sectionTitle">
+<h2>Signals + confidence</h2>
+<div class="small">How to read the call.</div>
+</div><div class="grid" style="margin-top:12px"><div class="card">
+<div class="iconTitle"><div class="icon glowA">✅</div><h3>Signals are decisions</h3></div>
+<p>Signals represent how strongly the data supports a favorable setup. The goal is clarity: act, wait, or stay out.</p>
+<ul class="ul">
+<li><span class="codeTag">STRONG BUY</span> — conditions align strongly (often early).</li>
+<li><span class="codeTag">WATCH</span> — promising, but needs confirmation.</li>
+<li><span class="codeTag">WAIT</span> — don’t chase; let structure form.</li>
+<li><span class="codeTag">DONT INVEST</span> — risk/structure is unacceptable.</li>
+</ul>
+</div><div class="card">
+<div class="iconTitle"><div class="icon glowB">📊</div><h3>Confidence = alignment</h3></div>
+<p>
+          Confidence measures how well multiple indicators agree. It is <b>not</b> profit probability.
+          Confidence can rise as the setup strengthens and fall as it degrades.
+        </p>
+<ul class="ul">
+<li>High confidence + high risk can still be a “no”.</li>
+<li>Edge adds context about what changed.</li>
+</ul>
+</div><div class="card">
+<div class="iconTitle"><div class="icon glowB">🧭</div><h3>Edge “why”</h3></div>
+<p>Edge explains what moved (structure/quality/behavior shifts) so the call is easier to trust — without changing the base signal.</p>
+</div></div></div></section>
+<!-- Phases -->
+<section aria-label="Phases" class="grid" id="phases"><div class="card full"><div class="sectionTitle">
+<h2>Phases</h2>
+<div class="small">Where the token is in its lifecycle.</div>
+</div><div style="margin-top:12px">
+<table aria-label="Phases overview" class="table" role="table">
+<thead>
+<tr>
+<th style="width:22%">Phase</th>
+<th>What it usually looks like</th>
+<th style="width:26%">How to think about it</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><span class="tag tagTease">Accumulation</span></td><td>Quiet trading, early liquidity forming, mixed prints.</td><td>Gather info. Don’t force an entry.</td></tr>
+<tr><td><span class="tag tagEdge">Ignition</span></td><td>Momentum begins, volume improves, structure firms up.</td><td>Best R/R if risk is clean.</td></tr>
+<tr><td><span class="tag tagTease">Momentum</span></td><td>Trend is obvious, volatility increases.</td><td>Manage entries. Avoid chasing spikes.</td></tr>
+<tr><td><span class="tag tagTease">Distribution</span></td><td>Sell pressure appears, quality changes.</td><td>Be picky. Protect capital.</td></tr>
+<tr><td><span class="tag tagTease">Exit / Blowoff</span></td><td>Sharp pumps, fast reversals, emotional buying.</td><td>High risk. Entries should be rare.</td></tr>
+<tr><td><span class="tag tagFree">Dump / Cascade</span></td><td>Liquidity drains, confidence collapses.</td><td>Don’t catch falling. Wait for reset.</td></tr>
+</tbody>
+</table>
+<p class="fine">Phases are guides, not guarantees. Panther updates the phase as structure changes.</p>
+</div></div></section>
+<!-- Risks -->
+<section aria-label="Risk flags" class="grid" id="risks"><div class="card full"><div class="sectionTitle">
+<h2>Risk flags</h2>
+<div class="small">Designed to keep you out of obvious traps.</div>
+</div><div class="grid" style="margin-top:12px"><div class="card">
+<div class="iconTitle"><div class="icon glowB">🧨</div><h3>Rug risk</h3></div>
+<p>Flags conditions that often precede liquidity pull, bad structure, or unreliable volume.</p>
+</div><div class="card">
+<div class="iconTitle"><div class="icon glowB">🧱</div><h3>Bundler / manipulation</h3></div>
+<p>Indicates behavior consistent with artificial support or engineered prints. Use it to avoid being exit liquidity.</p>
+</div><div class="card">
+<div class="iconTitle"><div class="icon glowA">🐋</div><h3>Whale pressure</h3></div>
+<p>Warns when holder behavior suggests heavy sell risk or unstable distribution.</p>
+</div></div></div></section>
+<!-- Monitoring -->
+<section aria-label="Monitoring" class="grid" id="monitoring"><div class="card full"><div class="sectionTitle">
+<h2>Monitoring</h2>
+<div class="small">Updates without spam.</div>
+</div><div class="grid" style="margin-top:12px"><div class="card">
+<div class="iconTitle"><div class="icon glowA">🔔</div><h3>Change-driven</h3></div>
+<p>Monitoring is designed to alert on meaningful changes (signal/phase/risk/structure), not every tick.</p>
+</div><div class="card">
+<div class="iconTitle"><div class="icon glowB">⏱️</div><h3>Intervals + limits</h3></div>
+<p>Free is throttled and capped. Edge increases watch capacity and refresh speed for multi-token monitoring.</p>
+</div><div class="card">
+<div class="iconTitle"><div class="icon glowB">🧾</div><h3>Why summaries</h3></div>
+<p>When the call changes, Panther summarizes the shift. Edge provides deeper “why” context and trend cues.</p>
+</div></div></div></section>
+<!-- Profiles -->
+<section aria-label="Profiles" class="grid" id="profiles"><div class="card full"><div class="sectionTitle">
+<h2>Profiles</h2>
+<div class="small">Risk tolerance + confirmation level.</div>
+</div><div class="grid" style="margin-top:12px"><div class="card"><div class="iconTitle"><div class="icon glowB">🧪</div><h3>Safer</h3></div><p>Higher confirmation, lower tolerance for messy structure.</p></div><div class="card"><div class="iconTitle"><div class="icon glowA">⚖️</div><h3>Balanced</h3></div><p>Middle ground: earlier than Safer, still filters the worst risk.</p></div><div class="card"><div class="iconTitle"><div class="icon glowB">⚡</div><h3>Early / Aggro</h3></div><p>Earlier entries, higher risk tolerance for fast launches.</p></div></div>
+<p class="fine" style="margin-top:0">Profiles change how strict Panther is — not the underlying reality.</p>
+</div></section>
+<!-- Edge -->
+<section aria-label="What Edge adds" class="grid" id="edge"><div class="card full"><div class="sectionTitle">
+<h2>What Edge adds</h2>
+<div class="small">More context, speed, and coverage (without changing the base signals).</div>
+</div><div class="grid" style="margin-top:12px"><div class="card"><div class="iconTitle"><div class="icon glowA">🧩</div><h3>“Why” explanations</h3></div><p>Explains what moved so you can trust the call faster.</p></div><div class="card"><div class="iconTitle"><div class="icon glowB">🚀</div><h3>More speed</h3></div><p>Faster refresh + monitoring for multiple launches.</p></div><div class="card"><div class="iconTitle"><div class="icon glowB">🛰️</div><h3>More coverage</h3></div><p>Higher watch limits + more visibility into developing setups.</p></div></div>
+<div class="callout">
+<b>Activation:</b> Edge is unlocked inside the app. An activation code is shown in Panther; once verified, Edge unlocks instantly.
+          No email. No account. No reinstall.
+        </div>
+</div></section>
+<!-- Limits -->
+<section aria-label="Limitations" class="grid" id="limits">
+<div class="card full">
+<div class="sectionTitle">
+<h2>Limitations</h2>
+<div class="small">Honest constraints = higher trust.</div>
+</div>
+<ul class="ul">
+<li>No auto-trading. Purely informational.</li>
+<li>API rate limits exist; caching is used to reduce spam/limits.</li>
+<li>Not every token has clean data. Risk flags stay conservative.</li>
+<li>Crypto is risky. Use discipline and position sizing.</li>
+</ul>
+</div>
+</section>
+<!-- Glossary -->
+<section aria-label="Glossary" class="grid" id="glossary">
+<div class="card full">
+<div class="sectionTitle">
+<h2>Glossary</h2>
+<div class="small">Quick definitions.</div>
+</div>
+<table aria-label="Glossary" class="table" role="table">
+<thead><tr><th style="width:22%">Term</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><span class="codeTag">MC</span></td><td>Market cap — context only.</td></tr>
+<tr><td><span class="codeTag">LIQ</span></td><td>Liquidity — low/unstable liquidity increases rug/slippage risk.</td></tr>
+<tr><td><span class="codeTag">VOL</span></td><td>Volume — quality and structure matter more than hype.</td></tr>
+<tr><td><span class="codeTag">Volume Health</span></td><td>Strong / Weak / Dead — quality filter.</td></tr>
+<tr><td><span class="codeTag">Signal age</span></td><td>How recent the current call is.</td></tr>
+</tbody>
+</table>
+<p class="fine">Want fewer words? Use the main <a href="/docs" style="text-decoration:underline">Docs</a>.</p>
+</div>
+</section>
+<div class="footer">
+<div>© <span id="y"></span> Panther Trading</div>
+<div class="links">
+<a href="https://x.com/PantherScan" rel="noreferrer" target="_blank">X</a>
+<a href="https://t.me/PantherEdge" rel="noreferrer" target="_blank">Telegram</a>
+</div>
+</div>
+</div>
+<script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+</body>
+</html>
