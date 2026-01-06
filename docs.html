@@ -40,25 +40,41 @@
       overflow-x: hidden;
     }
 
-a{ color: inherit; text-decoration: none; }
-    .container{ max-width: var(--max); margin: 0 auto; padding: 24px; }
-    .topbar{
-      position: sticky; top: 0; z-index: 20;
-      backdrop-filter: blur(12px);
-      background: rgba(11,16,32,.72);
-      border-bottom: 1px solid var(--border);
+
+a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:26px 18px 64px}
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
     }
-    .topbar-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding: 14px 24px; max-width: var(--max); margin:0 auto; }
-    .brand{ display:flex; align-items:center; gap:10px; font-weight: 700; letter-spacing: .2px; }
-    .brand-badge{
-      width: 28px; height: 28px; border-radius: 10px;
-      background: linear-gradient(135deg, rgba(0,255,170,.35), rgba(95,75,255,.28));
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.2px}
+    .mark{
+      width:34px;height:34px;border-radius:12px;
+      background:linear-gradient(135deg, rgba(0,255,170,.18), rgba(124,92,255,.18));
+      border:1px solid rgba(255,255,255,.10);
+      display:grid;place-items:center;
+      box-shadow:0 0 0 6px rgba(0,255,170,.05), 0 18px 44px rgba(0,0,0,.35);
     }
-    .nav{ display:flex; align-items:center; gap: 10px; flex-wrap: wrap; justify-content:flex-end; }
-    .nav a{ padding: 8px 10px; border-radius: 10px; color: var(--muted); }
-    .nav a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+    .nav{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-weight:800;font-size:14px}
+    .nav a{
+      padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+    }
+    .nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .nav a.active{
+      color:var(--text);
+      border-color:rgba(0,255,170,.28);
+      background:linear-gradient(135deg, rgba(0,255,170,.10), rgba(124,92,255,.08));
+      box-shadow:0 0 0 5px rgba(0,255,170,.05);
+    }
+
+    
+a{color:inherit;text-decoration:none}
+.container{ max-width: var(--max); margin: 0 auto; padding: 24px; }
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       padding: 10px 12px;
@@ -232,27 +248,28 @@ a{ color: inherit; text-decoration: none; }
       background: rgba(255,255,255,.06);
       color: rgba(255,255,255,.8);
     }
+  
   </style>
 </head>
 
 <body>
-  <!-- Top bar -->
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="./index.html" aria-label="Panther Trading Home">
-        <span class="brand-badge" aria-hidden="true"></span>
-        <span>Panther Trading</span>
-      </a>
+  
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="mark">🐆</div>
+        <div>Panther Trading</div>
+      </div>
 
-      <nav class="nav" aria-label="Primary">
-        <a href="./index.html">Home</a>
-        <a href="./docs.html" style="color: var(--text); background: rgba(255,255,255,.06);">How It Works</a>
-        <a href="./#pricing">Pricing</a>
-        <a href="./#download">Download</a>
-        <a class="btn primary" href="./#download">Get Panther</a>
-      </nav>
+      <div class="nav">
+        <a href="/index.html">Home</a>
+        <a href="/edge/edgeindex.html">Edge</a>
+        <a href="/download/downloadIndex">Download</a>
+        <a class="active" href="/docs">Docs</a>
+        <a href="https://x.com/PantherScan" target="_blank" rel="noreferrer">X</a>
+        <a href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">Telegram</a>
+      </div>
     </div>
-  </header>
 
   <main class="container">
     <!-- Hero -->
@@ -496,5 +513,7 @@ a{ color: inherit; text-decoration: none; }
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
+  </div>
+
 </body>
 </html>
