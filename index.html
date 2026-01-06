@@ -132,26 +132,35 @@
       align-items:center;
     }
 
-    /* Neon Download (same vibe as your homepage big button, but not full-width) */
+    
+    
+    /* Neon Download (primary CTA — emphasized) */
     .btnNeon{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:10px;
-      padding:12px 16px;
-      border-radius:14px;
+      gap:12px;
+      padding:18px 30px;
+      min-height:54px;
+      border-radius:18px;
       font-weight:950;
-      border:1px solid rgba(0,255,170,.34);
-      background:linear-gradient(135deg, rgba(0,255,170,.18), rgba(124,92,255,.10));
-      box-shadow:0 0 0 6px rgba(0,255,170,.06), 0 20px 42px rgba(0,0,0,.36);
+      font-size:18px;
+      letter-spacing:.3px;
+      border:1px solid rgba(0,255,170,.55);
+      background:linear-gradient(135deg, rgba(0,255,170,.28), rgba(124,92,255,.16));
+      box-shadow:
+        0 0 0 9px rgba(0,255,170,.09),
+        0 26px 60px rgba(0,0,0,.48);
       transform:translateZ(0);
     }
     .btnNeon:hover{
-      box-shadow:0 0 0 7px rgba(0,255,170,.075), 0 22px 44px rgba(0,0,0,.40);
-      border-color:rgba(0,255,170,.44);
+      box-shadow:
+        0 0 0 10px rgba(0,255,170,.12),
+        0 30px 64px rgba(0,0,0,.55);
+      border-color:rgba(0,255,170,.7);
     }
 
-    .btnGhost{
+.btnGhost{
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -341,7 +350,7 @@
         </div>
 
         <h1>Panther Trading — clarity at speed.</h1>
-        <p class="lead">Panther helps you make faster, cleaner decisions on Solana tokens by analyzing <b>behavior</b>, <b>risk</b>, and <b>momentum</b>. Use it to monitor setups in real time and avoid obvious traps.</p>
+        <p class="lead">Panther scans Solana tokens in real time and turns noisy on-chain behavior into clear, actionable calls — so you know when to act and when to stay out.</p>
 
         <div class="ctaRow">
           <a class="btnNeon" href="/download/downloadIndex">⬇️ Download Panther</a>
@@ -357,57 +366,51 @@
       </div>
     </section>
 
-    <!-- Value cards -->
-    <section class="grid" aria-label="Edge features">
+    <!-- What Panther does -->
+    <section class="grid" aria-label="What Panther does">
+      <div class="card full">
+        <div class="sectionTitle">
+          <h2>What Panther does</h2>
+          <div class="small">Clarity first — no noise, no hype.</div>
+        </div>
+      </div>
+
       <div class="card">
         <div class="iconTitle">
-          <div class="icon glowB">🧠</div>
-          <h3>Confidence (why)</h3>
+          <div class="icon glowB">🔎</div>
+          <h3>Finds early setups</h3>
         </div>
         <p>
-          See the drivers behind confidence changes: liquidity behavior, volume quality, structure, and trend.
-          Not “trust me bro” — more like “here’s what the market is doing.”
+          Tracks behavior, liquidity, and momentum to surface setups before they get noisy — and keeps updating as conditions change.
         </p>
       </div>
 
       <div class="card">
         <div class="iconTitle">
-          <div class="icon glowA">🧨</div>
-          <h3>Risk (why)</h3>
+          <div class="icon glowA">🛡️</div>
+          <h3>Surfaces risk clearly</h3>
         </div>
         <p>
-          Clear context for rug/bundler/whale warnings: what tripped it, what it usually leads to,
-          and what to watch next. Fast signal, smarter decision.
+          Flags common trap patterns (rug risk, bundlers, whale pressure) so you can avoid bad entries and obvious landmines.
         </p>
       </div>
 
       <div class="card">
         <div class="iconTitle">
-          <div class="icon glowB">🎯</div>
-          <h3>Entry (why)</h3>
+          <div class="icon glowB">🛰️</div>
+          <h3>Monitors without spam</h3>
         </div>
         <p>
-          Understand CHASE / WAIT / PULLBACK / CATCH_FALLING with the conditions that move it.
-          Edge helps you time entries without overtrading noise.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="iconTitle">
-          <div class="icon glowA">⚡</div>
-          <h3>Speed + coverage controls</h3>
-        </div>
-        <p>
-          Faster refresh options, higher monitoring limits, and profile-based behavior (Aggro / Balanced / Safer).
-          More tokens watched — without turning your screen into chaos.
+          Add a token once and Panther watches it for you — signals, metrics, and risk stay in sync without turning your screen into chaos.
         </p>
       </div>
 
       <!-- Comparison table -->
+
       <div class="card full" id="free-vs-edge">
         <div class="sectionTitle">
           <h2>Free vs Edge</h2>
-          <div class="small">Edge = speed + coverage + control (without more noise).</div>
+          <div class="small">Start Free. Upgrade when you want more speed + context.</div>
         </div>
 
         <table class="table" role="table" aria-label="Free vs Edge">
@@ -421,8 +424,7 @@
             <tr>
               <td><span class="tag tagFree">FREE</span></td>
               <td>
-                Core signals, live metrics, risk flags, and monitoring with conservative defaults.
-                Built to keep you out of obvious traps — without overwhelming you.
+                Core signals, live metrics, risk flags, and monitoring. Built to keep you out of obvious traps — without overwhelming you.
               </td>
             </tr>
             <tr>
@@ -431,8 +433,7 @@
                 <span class="tag tagTease">More speed + coverage</span>
               </td>
               <td>
-                Faster refresh intervals, higher monitoring limits, and profile-based behavior
-                (Aggro / Balanced / Safer). More visibility on developing setups — without more noise.
+                Faster refresh, higher monitoring limits, and deeper context. More visibility on developing setups — without more noise.
               </td>
             </tr>
           </tbody>
@@ -443,61 +444,11 @@
         </p>
       </div>
 
-      <!-- FAQ / positioning -->
-      <div class="card full">
-        <div class="sectionTitle">
-          <h2>Edge basics</h2>
-          <div class="small">Quick answers before you decide.</div>
-        </div>
-
-        <div class="grid" style="margin-top:10px">
-          <div class="card" style="grid-column:span 6">
-            <details open>
-              <summary>Does Edge change signals?</summary>
-              <p>
-                No. Edge doesn’t “turn WAIT into STRONG BUY.” It gives deeper context, faster refresh, and higher coverage
-                so you can act with more confidence (or walk away sooner).
-              </p>
-            </details>
-          </div>
-
-          <div class="card" style="grid-column:span 6">
-            <details>
-              <summary>Who is Edge for?</summary>
-              <p>
-                Traders watching multiple launches, comparing setups, and trying to stay disciplined.
-                If you like clean signals but want more context + speed, Edge fits.
-              </p>
-            </details>
-          </div>
-
-          <div class="card" style="grid-column:span 6">
-            <details>
-              <summary>Will Edge make me profit?</summary>
-              <p>
-                No promises. It reduces guesswork and improves decision quality — but you still pull the trigger,
-                manage risk, and decide when to exit.
-              </p>
-            </details>
-          </div>
-
-          <div class="card" style="grid-column:span 6">
-            <details>
-              <summary>Can I try Free first?</summary>
-              <p>
-                Yes. Most people start on Free to learn Panther’s calls, then upgrade when they want more speed,
-                more monitored tokens, and deeper “why” context.
-              </p>
-            </details>
-          </div>
-        </div>
-      </div>
-
-      <!-- Screenshots / proof -->
+      <!-- Screenshots / examples -->
       <div class="card full" id="screens">
         <div class="sectionTitle">
-          <h2>Proof (real examples)</h2>
-          <div class="small">Live screenshots from Panther (token names redacted).</div>
+          <h2>Live signal examples</h2>
+          <div class="small">Real calls from live markets (token names redacted).</div>
         </div>
 
         <div class="proofWrap">
@@ -525,7 +476,7 @@
         </div>
         <div class="ctaRow" style="margin-top:8px">
           <a class="btnNeon" href="/download/downloadIndex">⬇️ Download Panther</a>
-          <a class="btnGhost" href="/index.html">Back to Home →</a>
+          <a class="btnGhost" href="/docs">How it works →</a>
         </div>
         <p class="fine" style="margin-top:10px">
           ⚠️ Crypto is risky. Panther is an intelligence tool, not financial advice.
