@@ -50,9 +50,21 @@
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
     }
-    .nav{ display:flex; align-items:center; gap: 10px; flex-wrap: wrap; justify-content:flex-end; }
-    .nav a{ padding: 8px 10px; border-radius: 10px; color: var(--muted); }
-    .nav a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+    
+    .nav{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-weight:800;font-size:14px}
+    .nav a{
+      padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+    }
+    .nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .nav a.active{
+      color:var(--text);
+      border-color:rgba(0,255,170,.28);
+      background:linear-gradient(135deg, rgba(0,255,170,.10), rgba(124,92,255,.08));
+      box-shadow:0 0 0 5px rgba(0,255,170,.05);
+    }
+
+
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       padding: 10px 12px;
@@ -249,7 +261,7 @@
         <a href="/index.html">Home</a>
         <a href="/edge/edgeindex.html">Edge</a>
         <a href="/download/downloadIndex">Download</a>
-        <a href="/docs">Docs</a>
+        <a class="active" href="/docs">Docs</a>
         <a href="https://x.com/PantherScan" target="_blank" rel="noreferrer">X</a>
         <a href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">Telegram</a>
       
