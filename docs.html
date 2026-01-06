@@ -164,15 +164,6 @@
       padding: 18px;
     }
 
-    .shot-img{
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 16px 40px rgba(0,0,0,.35);
-    }
-
     .signals{
       display:grid;
       grid-template-columns: 1fr;
@@ -238,10 +229,12 @@
 
       <nav class="nav" aria-label="Primary">
         <a href="./index.html">Home</a>
-        <a href="./docs.html" style="color: var(--text); background: rgba(255,255,255,.06);">How It Works</a>
-        <a href="./#pricing">Pricing</a>
-        <a href="./#download">Download</a>
-        <a class="btn primary" href="./#download">Get Panther</a>
+        <a href="./docs.html" style="color: var(--text); background: rgba(255,255,255,.06);">Docs</a>
+        <a href="./edgeindex.html">Edge</a>
+        <a href="./downloadIndex.html">Download</a>
+        <a href="https://x.com/PantherScan" target="_blank" rel="noreferrer">X</a>
+        <a href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">Telegram</a>
+        <a class="btn primary" href="./downloadIndex.html">Get Panther</a>
       </nav>
     </div>
   </header>
@@ -259,24 +252,12 @@
         <a class="btn" href="#signals">Understand signals</a>
         <a class="btn" href="#free-vs-edge">Free vs Edge</a>
       </div>
-</section>
-
-    <!-- Quick Start -->
-    <section id="quickstart" class="card">
-      <div class="head">
-        <h2>Quick Start</h2>
-</div>
-
-      <div class="step">
-        <div class="num">1</div>
-        <div>
-          <h4>Add a token (contract address)</h4>
-          <p>Paste a Solana contract address and Panther will analyze it. If it’s invalid, you’ll get a clear error message.</p>
+      <p class="small" style="margin-top: 14px;">
+        
         </div>
       </div>
 
-      <div class="placeholder">
-        <img class="shot-img" src="./Assets/1.png" alt="Panther tutorial screenshot 1" loading="lazy" />
+      <div class="shotbox"><img src="Assets/1.png" alt="Add token input" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
       </div>
 
       <div class="step">
@@ -287,8 +268,7 @@
         </div>
       </div>
 
-      <div class="placeholder">
-        <img class="shot-img" src="./Assets/2.png" alt="Panther tutorial screenshot 2" loading="lazy" />
+      <div class="shotbox"><img src="Assets/3.png" alt="Monitoring controls" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
       </div>
 
       <div class="step">
@@ -299,8 +279,7 @@
         </div>
       </div>
 
-      <div class="placeholder">
-        <img class="shot-img" src="./Assets/3.PNG" alt="Panther tutorial screenshot 3" loading="lazy" />
+      <div class="shotbox"><img src="Assets/2.png" alt="Signal card example" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
       </div>
     </section>
 
@@ -308,8 +287,7 @@
     <section id="signals" class="grid two">
       <div class="card">
         <div class="head">
-          <h2>What signals mean</h2>
-</div>
+          <h2>What signals mean</h2></div>
         <div class="body">
           <div class="signals">
             <div class="signal">
@@ -349,13 +327,11 @@
 
       <div class="card">
         <div class="head">
-          <h2>Confidence & phase</h2>
-</div>
+          <h2>Confidence & phase</h2></div>
         <div class="body">
           <p><strong>Confidence</strong> is how strongly the data supports the current signal.</p>
           <p><strong>Phase</strong> explains where the token is in its lifecycle (early discovery, momentum, distribution, etc.).</p>
-          <div class="placeholder" style="padding: 0; border-top: 0;">
-            <img class="shot-img" src="./Assets/5.PNG" alt="Panther Confidence & Phase screenshot" loading="lazy" />
+          <div class="shotbox"><img src="Assets/4.png" alt="Confidence and phase" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
           </div>
         </div>
       </div>
@@ -364,8 +340,7 @@
     <!-- Risks -->
     <section id="risks" class="card" style="margin-top:16px;">
       <div class="head">
-        <h2>Risk indicators (what they mean)</h2>
-</div>
+        <h2>Risk indicators (what they mean)</h2></div>
       <div class="body">
         <table>
           <thead>
@@ -394,8 +369,7 @@
           </tbody>
         </table>
 
-        <div class="placeholder">
-          <img class="shot-img" src="./Assets/4.PNG" alt="Panther Confidence & Phase screenshot" loading="lazy" />
+        <div class="shotbox"><img src="Assets/3.png" alt="Monitoring controls" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
         </div>
 
         <p class="small" style="margin-top: 10px;">
@@ -408,8 +382,7 @@
     <section id="free-vs-edge" class="grid two" style="margin-top:16px;">
       <div class="card">
         <div class="head">
-          <h2>Free vs Edge</h2>
-</div>
+          <h2>Free vs Edge</h2></div>
         <div class="body">
           <table>
             <thead>
@@ -445,14 +418,15 @@
           <p style="margin-top: 12px;">
             If you’re consistently watching multiple tokens, Edge pays for itself by saving time and avoiding traps.
           </p>
-          <a class="btn primary" href="./#pricing">See Edge pricing</a>
+          <a class="btn primary" href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">Get Edge (message me)</a>
         </div>
       </div>
 
       <div class="card">
         <div class="head">
           <h2>FAQ</h2>
-</div>
+          <span class="pill">Cuts support tickets</span>
+        </div>
         <div class="body">
           <p><strong>Is Panther a trading bot?</strong><br/>No. Panther analyzes and monitors. You decide what to do.</p>
           <p><strong>Does Panther auto-buy?</strong><br/>No.</p>
@@ -464,17 +438,12 @@
 
     <!-- Advanced / Reference -->
     <section class="card" style="margin-top:16px;">
-      <div class="head">
-        <h2>Advanced reference (optional)</h2>
-        <span class="pill">Power users</span>
-      </div>
-      <div class="body">
-        <p>
-          Want the technical details? We keep a deeper reference for advanced users.
-        </p>
-        <p class="small">
-          Link: <a href="./advanced.html" style="color: var(--accent);">Advanced documentation</a>
-        </p>
+      <div class="row">
+        <div>
+          <h2>Need help?</h2>
+          <p>If you want <strong>Panther Edge</strong> activated, or you’re stuck on something, message me and I’ll help you get set up.</p>
+          <p class="muted">X: <a href="https://x.com/PantherScan" target="_blank" rel="noreferrer">@PantherScan</a> · Telegram: <a href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">@PantherEdge</a></p>
+        </div>
       </div>
     </section>
 
