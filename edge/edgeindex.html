@@ -2,663 +2,457 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>Panther Edge — Clarity at Speed</title>
-  <meta name="description" content="Panther Edge adds deeper context, faster refresh, and higher coverage. It doesn’t change signals — it explains them so you can act with confidence." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panther Trading — Tutorial</title>
+  <meta name="description" content="A visual tutorial for using Panther Trading: quick start, signals, risks, monitoring, and Free vs Edge." />
 
   <style>
     :root{
-      --bg:#070b14;
-      --panel:#0c1426;
-      --panel2:#0b1020;
-      --text:#e9eefc;
-      --muted:#a9b4d6;
-      --muted2:#7f8ab0;
-      --line:rgba(255,255,255,.085);
-
-      --accent:#00ffaa;
-      --accent2:#7c5cff;
-      --danger:#ff4d6d;
-      --warn:#ffcf5c;
-
-      --radius:18px;
-      --shadow:0 14px 40px rgba(0,0,0,.38);
+      --bg: #0b1020;
+      --panel: #0d1628;
+      --panel2: #0a1324;
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --border: rgba(255,255,255,.12);
+      --accent: #00ffaa;
+      --accent2: #5f4bff;
+      --good: #22c55e;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --max: 1100px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    * { box-sizing: border-box; }
     body{
-      margin:0;
-      color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background:
-        radial-gradient(900px 600px at 18% 0%, rgba(124,92,255,.22), transparent 62%),
-        radial-gradient(800px 520px at 80% 10%, rgba(0,255,170,.16), transparent 60%),
-        radial-gradient(650px 520px at 70% 90%, rgba(124,92,255,.12), transparent 62%),
-        var(--bg);
-      overflow-x:hidden;
+      margin: 0;
+      background: radial-gradient(900px 600px at 18% -12%, rgba(0,255,170,.10), transparent 60%),
+                  radial-gradient(900px 600px at 92% -6%, rgba(95,75,255,.10), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
 
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1100px;margin:0 auto;padding:26px 18px 64px}
-    .top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:14px;
+    a{ color: inherit; text-decoration: none; }
+    .container{ max-width: var(--max); margin: 0 auto; padding: 24px; }
+    .topbar{
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(11,16,32,.78);
+      border-bottom: 1px solid var(--border);
     }
-    .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.2px}
-    .mark{
-      width:34px;height:34px;border-radius:12px;
-      background:linear-gradient(135deg, rgba(0,255,170,.18), rgba(124,92,255,.18));
-      border:1px solid rgba(255,255,255,.10);
-      display:grid;place-items:center;
-      box-shadow:0 0 0 6px rgba(0,255,170,.05), 0 18px 44px rgba(0,0,0,.35);
+    .topbar-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding: 14px 24px; max-width: var(--max); margin:0 auto; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight: 700; letter-spacing: .2px; }
+    .brand-badge{
+      width: 28px; height: 28px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0,255,170,.35), rgba(95,75,255,.28));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
     }
-    .nav{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-weight:800;font-size:14px}
-    .nav a{
-      padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.03);
+    .nav{ display:flex; align-items:center; gap: 10px; flex-wrap: wrap; justify-content:flex-end; }
+    .nav a{ padding: 8px 10px; border-radius: 10px; color: var(--muted); }
+    .nav a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
     }
-    .nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
-    .nav a.active{
-      color:var(--text);
-      border-color:rgba(0,255,170,.28);
-      background:linear-gradient(135deg, rgba(0,255,170,.10), rgba(124,92,255,.08));
-      box-shadow:0 0 0 5px rgba(0,255,170,.05);
+    .btn:hover{ background: rgba(255,255,255,.09); }
+    .btn.primary{
+      background: linear-gradient(90deg, #00ffaa, #00d68f);
+      border-color: rgba(0,255,170,.28);
+      color: rgba(6,10,18,.92);
+      font-weight: 700;
+      box-shadow: 0 0 0 6px rgba(0,255,170,.10), 0 22px 48px rgba(0,0,0,.45);
     }
+    .btn.primary:hover{ filter: brightness(1.03); }
 
     .hero{
-      position:relative;
-      padding:22px;
-      border-radius:24px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(12,20,38,.80), rgba(10,16,32,.56));
-      box-shadow:var(--shadow);
-      overflow:hidden;
+      padding: 34px 0 18px;
     }
-    .hero::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(520px 240px at 30% 15%, rgba(0,255,170,.12), transparent 60%),
-        radial-gradient(520px 240px at 70% 0%, rgba(124,92,255,.14), transparent 58%),
-        radial-gradient(520px 240px at 75% 95%, rgba(0,255,170,.08), transparent 60%);
-      pointer-events:none;
-      filter:blur(.2px);
+    .hero h1{
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.12;
+      letter-spacing: -0.6px;
     }
-    .heroInner{position:relative}
+    .hero p{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 60ch;
+    }
+    .hero-actions{ display:flex; gap: 10px; flex-wrap: wrap; }
 
-    .kickers{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:7px 10px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);
-      color:var(--muted);
-      font-weight:900;
-      font-size:12px;
-      letter-spacing:.3px;
-      text-transform:uppercase;
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin: 18px 0 0;
     }
-    .pill .dot{
-      width:7px;height:7px;border-radius:99px;background:rgba(0,255,170,.9);
-      box-shadow:0 0 0 6px rgba(0,255,170,.08);
+    @media (min-width: 900px){
+      .grid.two{ grid-template-columns: 1fr 1fr; }
+      .grid.three{ grid-template-columns: 1fr 1fr 1fr; }
     }
 
-    h1{
-      margin:0 0 10px;
-      font-size:38px;
-      letter-spacing:-.6px;
-      line-height:1.06;
-    }
-    .lead{
-      margin:0;
-      color:var(--muted);
-      line-height:1.55;
-      font-size:16px;
-      max-width:900px;
-    }
-    .lead b{color:var(--text)}
-
-    .ctaRow{
-      margin-top:16px;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-
-    /* Neon Download (same vibe as your homepage big button, but not full-width) */
-    .btnNeon{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:12px 16px;
-      border-radius:14px;
-      font-weight:950;
-      border:1px solid rgba(0,255,170,.34);
-      background:linear-gradient(135deg, rgba(0,255,170,.18), rgba(124,92,255,.10));
-      box-shadow:0 0 0 6px rgba(0,255,170,.06), 0 20px 42px rgba(0,0,0,.36);
-      transform:translateZ(0);
-    }
-    .btnNeon:hover{
-      box-shadow:0 0 0 7px rgba(0,255,170,.075), 0 22px 44px rgba(0,0,0,.40);
-      border-color:rgba(0,255,170,.44);
-    }
-
-    .btnGhost{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:12px 14px;
-      border-radius:14px;
-      font-weight:900;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);
-      color:var(--text);
-    }
-    .btnGhost:hover{background:rgba(255,255,255,.06)}
-
-    .noteRow{
-      margin-top:10px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      color:var(--muted2);
-      font-size:13px;
-      align-items:center;
-    }
-    .noteRow code{color:var(--text)}
-    .sep{opacity:.55}
-
-    /* Content grid */
-    .grid{margin-top:14px;display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
     .card{
-      grid-column:span 6;
-      padding:16px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:rgba(10,16,32,.62);
-      box-shadow:0 10px 28px rgba(0,0,0,.22);
-    }
-    .card h3{margin:0 0 8px;font-size:16px;letter-spacing:-.2px}
-    .card p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
-    .full{grid-column:span 12}
-
-    .iconTitle{display:flex;align-items:center;gap:10px}
-    .icon{
-      width:34px;height:34px;border-radius:12px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);
-      display:grid;place-items:center;
-      color:var(--text);
-    }
-    .icon.glowA{box-shadow:0 0 0 6px rgba(0,255,170,.06)}
-    .icon.glowB{box-shadow:0 0 0 6px rgba(124,92,255,.08)}
-
-    /* Comparison table card */
-    .sectionTitle{
-      display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .sectionTitle h2{margin:0;font-size:18px;letter-spacing:-.2px}
-    .small{color:var(--muted2);font-size:13px}
-    .table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.09);
-      background:rgba(255,255,255,.02);
-    }
-    .table th,.table td{
-      padding:14px 14px;
-      border-bottom:1px solid rgba(255,255,255,.07);
-      vertical-align:top;
-      text-align:left;
-    }
-    .table th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.35px;font-weight:950}
-    .table tr:last-child td{border-bottom:none}
-
-    .tag{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:7px 10px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);
-      font-weight:950;font-size:12px;letter-spacing:.3px;
-    }
-    .tagFree{border-color:rgba(124,92,255,.30); background:rgba(124,92,255,.10); color:#d8d2ff}
-    .tagEdge{border-color:rgba(0,255,170,.30); background:rgba(0,255,170,.08); color:#bfffea}
-    .tagTease{border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:var(--muted); font-weight:900}
-
-    .fine{margin:10px 0 0;color:var(--muted2);font-size:13px;line-height:1.5}
-
-    /* Proof / screenshots */
-    .proofWrap{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-    .shot{
-      grid-column:span 6;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);
+      background: rgba(13,22,40,.82);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       overflow:hidden;
     }
-    .shot img{display:block;width:100%;height:auto}
-    .cap{padding:10px 12px;color:var(--muted2);font-size:13px}
-    .cap strong{color:var(--text)}
-    .todo{
-      margin-top:10px;
-      border-radius:16px;
-      border:1px dashed rgba(255,255,255,.14);
-      padding:12px;
-      color:var(--muted2);
-      background:rgba(255,255,255,.02);
-      font-size:13px;
-      line-height:1.5;
+    .card .head{
+      padding: 16px 16px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display:flex; align-items:flex-start; justify-content:space-between; gap: 12px;
     }
-    .todo code{color:var(--text)}
-    .todo ul{margin:8px 0 0;padding-left:18px}
+    .card .head h2, .card .head h3{
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: .2px;
+    }
+    .card .body{ padding: 14px 16px 16px; color: var(--muted); }
+    .pill{
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      white-space: nowrap;
+    }
 
-    /* FAQ */
-    details{
-      border:1px solid rgba(255,255,255,.09);
-      background:rgba(255,255,255,.02);
-      border-radius:16px;
-      padding:12px 12px;
-    }
-    details summary{
-      cursor:pointer;
-      font-weight:950;
-      color:var(--text);
-      list-style:none;
-    }
-    details summary::-webkit-details-marker{display:none}
-    details p{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.55}
-
-    /* Footer */
-    .footer{
-      margin-top:18px;
-      color:var(--muted2);
-      font-size:13px;
-      line-height:1.5;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      padding-top:8px;
-    }
-    .links{display:flex;gap:10px;flex-wrap:wrap}
-    .links a{
-      padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.03);
-      color:var(--muted);
-      font-weight:900;
-      font-size:13px;
-    }
-    .links a:hover{background:rgba(255,255,255,.06);color:var(--text)}
-    /* How to Get Edge */
-    .howto{
-      padding:18px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(12,20,38,.72), rgba(10,16,32,.54));
-      box-shadow:0 10px 28px rgba(0,0,0,.22);
-    }
-    .howtoHead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:10px}
-    .howtoHead h2{margin:0;font-size:18px;letter-spacing:-.2px}
-    .howtoSub{margin:0 0 14px;color:var(--muted);font-size:14px;line-height:1.55;max-width:900px}
-    .steps{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:10px}
     .step{
-      grid-column:span 6;
-      display:flex;gap:12px;align-items:flex-start;
-      padding:14px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.09);
-      background:rgba(255,255,255,.02);
+      display:flex; gap: 14px; align-items:flex-start;
+      padding: 14px 16px;
+      border-top: 1px solid rgba(255,255,255,.08);
     }
-    .stepNum{
-      width:28px;height:28px;border-radius:10px;
-      display:grid;place-items:center;
-      font-weight:950;
-      color:rgba(6,10,18,.92);
-      background:linear-gradient(90deg, rgba(0,255,170,.95), rgba(0,214,143,.92));
-      box-shadow:0 0 0 6px rgba(0,255,170,.08);
-      flex:0 0 28px;
+    .step:first-child{ border-top: 0; }
+    .num{
+      width: 28px; height: 28px;
+      border-radius: 10px;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(0,255,170,.14);
+      border: 1px solid rgba(0,255,170,.18);
+      color: var(--text);
+      font-weight: 700;
+      flex: 0 0 28px;
     }
-    .step p{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.55}
-    .howtoNote{
-      margin-top:12px;
-      padding:12px 14px;
-      border-radius:16px;
-      border:1px solid rgba(0,255,170,.18);
-      background:rgba(0,255,170,.06);
-      color:var(--muted);
-      font-size:13.5px;
-      line-height:1.55;
+    .step h4{ margin: 0 0 4px; color: var(--text); }
+    .step p{ margin: 0; }
+
+    .placeholder{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 16px;
     }
-    .howtoActions{margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    @media (max-width:920px){
-      .step{grid-column:span 12}
+    .shot{
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,.20);
+      background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      display:flex; align-items:center; justify-content:center;
+      color: rgba(255,255,255,.55);
+      font-size: 13px;
+      text-align:center;
+      padding: 18px;
     }
 
+    .signals{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .signal{
+      display:flex; align-items:flex-start; gap: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .dot{ width: 10px; height: 10px; border-radius: 999px; margin-top: 6px; flex: 0 0 10px; }
+    .dot.good{ background: var(--good); }
+    .dot.warn{ background: var(--warn); }
+    .dot.bad{ background: var(--bad); }
+    .dot.purple{ background: var(--accent2); }
 
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      overflow:hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    th, td{
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      text-align: left;
+      vertical-align: top;
+    }
+    th{ color: var(--text); background: rgba(255,255,255,.04); font-size: 13px; }
+    td{ color: var(--muted); }
+    tr:last-child td{ border-bottom: 0; }
 
-
-    @media (max-width:920px){
-      .card{grid-column:span 12}
-      .shot{grid-column:span 12}
-      h1{font-size:34px}
+    .footer{
+      margin-top: 34px;
+      padding: 26px 0 50px;
+      color: rgba(255,255,255,.55);
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+    .small{ font-size: 13px; color: rgba(255,255,255,.62); }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.8);
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div class="brand">
-        <div class="mark">🐆</div>
-        <div>Panther Trading</div>
-      </div>
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./index.html" aria-label="Panther Trading Home">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>Panther Trading</span>
+      </a>
 
-      <div class="nav">
-        <a href="/index.html">Home</a>
-        <a class="active" href="/edge/edgeindex.html">Edge</a>
-        <a href="/download/downloadindex.html">Download</a>
-        <a href="https://github.com/panthertrading/PantherTrading" target="_blank" rel="noreferrer">GitHub</a>
-      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="./index.html">Home</a>
+        <a href="./docs.html" style="color: var(--text); background: rgba(255,255,255,.06);">Docs</a>
+        <a href="./edgeindex.html">Edge</a>
+        <a href="./downloadIndex.html">Download</a>
+        <a href="https://x.com/PantherScan" target="_blank" rel="noreferrer">X</a>
+        <a href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">Telegram</a>
+        <a class="btn primary" href="./downloadIndex.html">Get Panther</a>
+      </nav>
     </div>
+  </header>
 
+  <main class="container">
+    <!-- Hero -->
     <section class="hero">
-      <div class="heroInner">
-        <div class="kickers">
-          <span class="pill"><span class="dot"></span> Explains the signal</span>
-          <span class="pill">Faster + more coverage</span>
-          <span class="pill">Built for disciplined degens</span>
+      <h1>How to use Panther (without the technical headache)</h1>
+      <p>
+        Panther is built to help you make faster, cleaner decisions on Solana tokens — by analyzing behavior, risk, and momentum.
+        This guide shows what each screen means and how to use it confidently.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#quickstart">Start the tutorial</a>
+        <a class="btn" href="#signals">Understand signals</a>
+        <a class="btn" href="#free-vs-edge">Free vs Edge</a>
+      </div>
+      <p class="small" style="margin-top: 14px;">
+        
         </div>
+      </div>
 
-        <h1>Panther Edge = clarity at speed.</h1>
-        <p class="lead">
-          Edge doesn’t change Panther’s calls — it gives <b>deeper context</b>, <b>faster refresh</b>, and <b>higher coverage</b>
-          so you can decide when to enter, when to wait, or when to stay out (without guessing).
-        </p>
+      <div class="shotbox"><img src="Assets/1.png" alt="Add token input" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
+      </div>
 
-        <div class="ctaRow">
-          <a class="btnNeon" href="/download/downloadindex.html">⬇️ Download Panther</a>
-          <a class="btnGhost" href="#free-vs-edge">Compare Free vs Edge →</a>
-          <a class="btnGhost" href="#screens">See Edge screenshots →</a>
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h4>Read the signal card</h4>
+          <p>Signals are not “guaranteed profit.” They represent how strongly the data aligns with a favorable setup.</p>
         </div>
+      </div>
 
-        <div class="noteRow">
-          <span>Edge = <b>why</b> + <b>speed</b> + <b>coverage</b>.</span>
-          <span class="sep">•</span>
-          <span>Works best when you’re monitoring multiple launches.</span>
+      <div class="shotbox"><img src="Assets/3.png" alt="Monitoring controls" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
+      </div>
+
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h4>Monitor it (get updates without spam)</h4>
+          <p>Monitoring tracks changes over time. Start/Stop monitoring whenever you want.</p>
+        </div>
+      </div>
+
+      <div class="shotbox"><img src="Assets/2.png" alt="Signal card example" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
+      </div>
+    </section>
+
+    <!-- Signals -->
+    <section id="signals" class="grid two">
+      <div class="card">
+        <div class="head">
+          <h2>What signals mean</h2></div>
+        <div class="body">
+          <div class="signals">
+            <div class="signal">
+              <span class="dot good"></span>
+              <div>
+                <strong>STRONG BUY</strong>
+                <div class="small">High alignment + healthier structure. Still manage risk.</div>
+              </div>
+            </div>
+            <div class="signal">
+              <span class="dot warn"></span>
+              <div>
+                <strong>WAIT / WATCH</strong>
+                <div class="small">Early or unclear. Wait for confirmation.</div>
+              </div>
+            </div>
+            <div class="signal">
+              <span class="dot bad"></span>
+              <div>
+                <strong>DON’T INVEST</strong>
+                <div class="small">Structural risk detected. Avoid chasing.</div>
+              </div>
+            </div>
+            <div class="signal">
+              <span class="dot purple"></span>
+              <div>
+                <strong>DEGEN BUY</strong>
+                <div class="small">High risk / high variance. Only for aggressive traders.</div>
+              </div>
+            </div>
+          </div>
+          <p style="margin-top: 12px;">
+            The goal is to avoid bad trades first — then catch the good ones.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head">
+          <h2>Confidence & phase</h2></div>
+        <div class="body">
+          <p><strong>Confidence</strong> is how strongly the data supports the current signal.</p>
+          <p><strong>Phase</strong> explains where the token is in its lifecycle (early discovery, momentum, distribution, etc.).</p>
+          <div class="shotbox"><img src="Assets/4.png" alt="Confidence and phase" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Value cards -->
-    <section class="grid" aria-label="Edge features">
-      <div class="card">
-        <div class="iconTitle">
-          <div class="icon glowB">🧠</div>
-          <h3>Confidence (why)</h3>
-        </div>
-        <p>
-          See the drivers behind confidence changes: liquidity behavior, volume quality, structure, and trend.
-          Not “trust me bro” — more like “here’s what the market is doing.”
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="iconTitle">
-          <div class="icon glowA">🧨</div>
-          <h3>Risk (why)</h3>
-        </div>
-        <p>
-          Clear context for rug/bundler/whale warnings: what tripped it, what it usually leads to,
-          and what to watch next. Fast signal, smarter decision.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="iconTitle">
-          <div class="icon glowB">🎯</div>
-          <h3>Entry (why)</h3>
-        </div>
-        <p>
-          Understand CHASE / WAIT / PULLBACK / CATCH_FALLING with the conditions that move it.
-          Edge helps you time entries without overtrading noise.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="iconTitle">
-          <div class="icon glowA">⚡</div>
-          <h3>Speed + coverage controls</h3>
-        </div>
-        <p>
-          Faster refresh options, higher monitoring limits, and profile-based behavior (Aggro / Balanced / Safer).
-          More tokens watched — without turning your screen into chaos.
-        </p>
-      </div>
-
-      <!-- Comparison table -->
-      <div class="card full" id="free-vs-edge">
-        <div class="sectionTitle">
-          <h2>Free vs Edge</h2>
-          <div class="small">Edge = speed + coverage + control (without more noise).</div>
-
-
-      <!-- How to Get Edge -->
-      <div class="howto full" id="how-to-get-edge">
-        <div class="howtoHead">
-          <h2>How to Get Edge</h2>
-          <div class="small">Unlocked inside the app — no new download required.</div>
-        </div>
-        <p class="howtoSub">
-          Edge is activated directly inside Panther. Your setup stays the same — Edge just adds <b>why</b> + <b>speed</b> + <b>coverage</b>.
-        </p>
-
-        <div class="steps">
-          <div class="step">
-            <div class="stepNum">1</div>
-            <div>
-              <div style="font-weight:950;color:var(--text)">Download Panther</div>
-              <p>Panther Free works out of the box. No account required.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="stepNum">2</div>
-            <div>
-              <div style="font-weight:950;color:var(--text)">Upgrade inside the app</div>
-              <p>Click <b>Upgrade to Edge</b> from the top bar or settings.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="stepNum">3</div>
-            <div>
-              <div style="font-weight:950;color:var(--text)">Activate your license</div>
-              <p>Paste your license key and activate. Takes seconds.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="stepNum">4</div>
-            <div>
-              <div style="font-weight:950;color:var(--text)">Edge unlocks instantly</div>
-              <p>No reinstall. No data loss. Same Panther — just more context and coverage.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="howtoNote">
-          <b style="color:var(--text)">Reality check:</b> Edge doesn’t force trades. It reduces guesswork so you can decide faster — or walk away sooner.
-        </div>
-
-        <div class="howtoActions">
-          <a class="btnNeon" href="/download/downloadindex.html">⬇️ Download Panther</a>
-          <a class="btnGhost" href="/docs.html">How it works →</a>
-          <a class="btnGhost" href="#free-vs-edge">Free vs Edge ↑</a>
-        </div>
-      </div>
-
-        </div>
-
-        <table class="table" role="table" aria-label="Free vs Edge">
+    <!-- Risks -->
+    <section id="risks" class="card" style="margin-top:16px;">
+      <div class="head">
+        <h2>Risk indicators (what they mean)</h2></div>
+      <div class="body">
+        <table>
           <thead>
             <tr>
-              <th style="width:28%">Tier</th>
-              <th>What you get</th>
+              <th style="width: 28%;">Indicator</th>
+              <th>What it usually implies</th>
+              <th style="width: 28%;">What you should do</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><span class="tag tagFree">FREE</span></td>
-              <td>
-                Core signals, live metrics, risk flags, and monitoring with conservative defaults.
-                Built to keep you out of obvious traps — without overwhelming you.
-              </td>
+              <td><strong>Rug Risk</strong></td>
+              <td>Liquidity / ownership patterns that often precede rugs.</td>
+              <td>Reduce exposure or avoid completely.</td>
             </tr>
             <tr>
-              <td>
-                <span class="tag tagEdge">EDGE</span>
-                <span class="tag tagTease">More speed + coverage</span>
-              </td>
-              <td>
-                Faster refresh intervals, higher monitoring limits, and profile-based behavior
-                (Aggro / Balanced / Safer). More visibility on developing setups — without more noise.
-              </td>
+              <td><strong>Bundler Risk</strong></td>
+              <td>Wallet clustering / patterns suggesting manipulation.</td>
+              <td>Be cautious with entries; watch exits closely.</td>
+            </tr>
+            <tr>
+              <td><strong>Whale Risk</strong></td>
+              <td>Large holders can dump hard and fast.</td>
+              <td>Prefer small sizing, tighter exits.</td>
             </tr>
           </tbody>
         </table>
 
-        <p class="fine">
-          Panther is an intelligence tool — not financial advice. Crypto is risky. Panther helps you understand the setup before you click buy.
-        </p>
-      </div>
-
-      <!-- FAQ / positioning -->
-      <div class="card full">
-        <div class="sectionTitle">
-          <h2>Edge basics</h2>
-          <div class="small">Quick answers before you decide.</div>
+        <div class="shotbox"><img src="Assets/3.png" alt="Monitoring controls" style="width:100%;height:auto;border-radius:14px;display:block;"></div>
         </div>
 
-        <div class="grid" style="margin-top:10px">
-          <div class="card" style="grid-column:span 6">
-            <details open>
-              <summary>Does Edge change signals?</summary>
-              <p>
-                No. Edge doesn’t “turn WAIT into STRONG BUY.” It gives deeper context, faster refresh, and higher coverage
-                so you can act with more confidence (or walk away sooner).
-              </p>
-            </details>
-          </div>
-
-          <div class="card" style="grid-column:span 6">
-            <details>
-              <summary>Who is Edge for?</summary>
-              <p>
-                Traders watching multiple launches, comparing setups, and trying to stay disciplined.
-                If you like clean signals but want more context + speed, Edge fits.
-              </p>
-            </details>
-          </div>
-
-          <div class="card" style="grid-column:span 6">
-            <details>
-              <summary>Will Edge make me profit?</summary>
-              <p>
-                No promises. It reduces guesswork and improves decision quality — but you still pull the trigger,
-                manage risk, and decide when to exit.
-              </p>
-            </details>
-          </div>
-
-          <div class="card" style="grid-column:span 6">
-            <details>
-              <summary>Can I try Free first?</summary>
-              <p>
-                Yes. Most people start on Free to learn Panther’s calls, then upgrade when they want more speed,
-                more monitored tokens, and deeper “why” context.
-              </p>
-            </details>
-          </div>
-        </div>
-      </div>
-
-      <!-- Screenshots / proof -->
-      <div class="card full" id="screens">
-        <div class="sectionTitle">
-          <h2>Edge screenshots</h2>
-          <div class="small">Add 1–3 real UI screenshots (redact anything sensitive).</div>
-        </div>
-
-        <div class="proofWrap">
-          <!-- Placeholder #1 -->
-          <div class="shot">
-            <img
-              alt="Edge screenshot placeholder: details panel with confidence drivers"
-              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230b1020'/%3E%3Cstop offset='1' stop-color='%23111b33'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='720' fill='url(%23g)'/%3E%3Crect x='70' y='70' width='1060' height='580' rx='26' fill='%230d1628' stroke='%23203052'/%3E%3Ctext x='120' y='150' fill='%23e9eefc' font-family='Arial' font-size='34' font-weight='700'%3EEdge details (placeholder)%3C/text%3E%3Ctext x='120' y='205' fill='%23a9b4d6' font-family='Arial' font-size='22'%3EConfidence drivers • Risk context • Entry conditions%3C/text%3E%3Crect x='120' y='255' width='950' height='16' rx='8' fill='%23203052'/%3E%3Crect x='120' y='255' width='620' height='16' rx='8' fill='%2300ffaa' opacity='.75'/%3E%3Ctext x='120' y='330' fill='%23a9b4d6' font-family='Arial' font-size='20'%3E• Liquidity stable%3C/text%3E%3Ctext x='120' y='365' fill='%23a9b4d6' font-family='Arial' font-size='20'%3E• Volume quality rising%3C/text%3E%3Ctext x='120' y='400' fill='%23a9b4d6' font-family='Arial' font-size='20'%3E• Structure holding support%3C/text%3E%3Ctext x='120' y='520' fill='%237f8ab0' font-family='Arial' font-size='18'%3EReplace with a real screenshot later.%3C/text%3E%3C/svg%3E"
-            />
-            <div class="cap"><strong>Edge view</strong> — show drivers behind confidence, risk, and entry guidance.</div>
-          </div>
-
-          <!-- Placeholder #2 -->
-          <div class="shot">
-            <img
-              alt="Edge screenshot placeholder: risk context panel"
-              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230b1020'/%3E%3Cstop offset='1' stop-color='%23111b33'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='720' fill='url(%23g)'/%3E%3Crect x='70' y='70' width='1060' height='580' rx='26' fill='%230d1628' stroke='%23203052'/%3E%3Ctext x='120' y='150' fill='%23ff4d6d' font-family='Arial' font-size='34' font-weight='800'%3ERisk context (placeholder)%3C/text%3E%3Ctext x='120' y='205' fill='%23a9b4d6' font-family='Arial' font-size='22'%3EWhat triggered the warning and what to watch next%3C/text%3E%3Crect x='120' y='255' width='950' height='16' rx='8' fill='%23203052'/%3E%3Crect x='120' y='255' width='720' height='16' rx='8' fill='%23ff4d6d' opacity='.75'/%3E%3Ctext x='120' y='330' fill='%23a9b4d6' font-family='Arial' font-size='20'%3E• Bundler behavior detected%3C/text%3E%3Ctext x='120' y='365' fill='%23a9b4d6' font-family='Arial' font-size='20'%3E• Liquidity instability%3C/text%3E%3Ctext x='120' y='400' fill='%23a9b4d6' font-family='Arial' font-size='20'%3E• Whale concentration rising%3C/text%3E%3Ctext x='120' y='520' fill='%237f8ab0' font-family='Arial' font-size='18'%3EReplace with a real screenshot later.%3C/text%3E%3C/svg%3E"
-            />
-            <div class="cap"><strong>Risk (why)</strong> — warnings with context, not just red labels.</div>
-          </div>
-        </div>
-
-        <div class="todo">
-          <b>Drop-in instructions:</b> add real images under <code>/assets/</code> and replace the <code>src=...</code> above.
-          <ul>
-            <li><code>assets/edge-details.png</code> (full details panel)</li>
-            <li><code>assets/edge-risk.png</code> (risk context close-up)</li>
-            <li><code>assets/edge-entry.png</code> (entry conditions close-up)</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Final CTA -->
-      <div class="card full">
-        <div class="sectionTitle">
-          <h2>Ready to run Panther?</h2>
-          <div class="small">Start Free. Upgrade when you want more speed + context.</div>
-        </div>
-        <div class="ctaRow" style="margin-top:8px">
-          <a class="btnNeon" href="/download/downloadindex.html">⬇️ Download Panther</a>
-          <a class="btnGhost" href="/index.html">Back to Home →</a>
-        </div>
-        <p class="fine" style="margin-top:10px">
-          ⚠️ Crypto is risky. Panther is an intelligence tool, not financial advice.
+        <p class="small" style="margin-top: 10px;">
+          Note: No tool is perfect. Panther reduces risk — it does not eliminate it.
         </p>
       </div>
     </section>
 
-    <div class="footer">
-      <div>© <span id="y"></span> Panther Trading</div>
-      <div class="links">
-        <!-- Swap these to your real URLs -->
-        <a href="https://x.com/" target="_blank" rel="noreferrer">X</a>
-        <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
-        <a href="https://github.com/panthertrading/PantherTrading" target="_blank" rel="noreferrer">GitHub</a>
+    <!-- Free vs Edge -->
+    <section id="free-vs-edge" class="grid two" style="margin-top:16px;">
+      <div class="card">
+        <div class="head">
+          <h2>Free vs Edge</h2></div>
+        <div class="body">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Free</th>
+                <th>Edge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Max tokens</td>
+                <td>2</td>
+                <td>Higher limits</td>
+              </tr>
+              <tr>
+                <td>Profiles</td>
+                <td>Safe only</td>
+                <td>Safe / Balanced / Aggro</td>
+              </tr>
+              <tr>
+                <td>Scan speed</td>
+                <td>Slower floor</td>
+                <td>Faster intervals</td>
+              </tr>
+              <tr>
+                <td>Best for</td>
+                <td>Trying Panther</td>
+                <td>Daily use / serious scanning</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 12px;">
+            If you’re consistently watching multiple tokens, Edge pays for itself by saving time and avoiding traps.
+          </p>
+          <a class="btn primary" href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">Get Edge (message me)</a>
+        </div>
       </div>
-    </div>
-  </div>
+
+      <div class="card">
+        <div class="head">
+          <h2>FAQ</h2>
+          <span class="pill">Cuts support tickets</span>
+        </div>
+        <div class="body">
+          <p><strong>Is Panther a trading bot?</strong><br/>No. Panther analyzes and monitors. You decide what to do.</p>
+          <p><strong>Does Panther auto-buy?</strong><br/>No.</p>
+          <p><strong>Is this financial advice?</strong><br/>No. This is a decision-support tool.</p>
+          <p><strong>Why didn’t Panther flag a rug?</strong><br/>No tool catches everything. Use signals + risk pills + common sense.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advanced / Reference -->
+    <section class="card" style="margin-top:16px;">
+      <div class="row">
+        <div>
+          <h2>Need help?</h2>
+          <p>If you want <strong>Panther Edge</strong> activated, or you’re stuck on something, message me and I’ll help you get set up.</p>
+          <p class="muted">X: <a href="https://x.com/PantherScan" target="_blank" rel="noreferrer">@PantherScan</a> · Telegram: <a href="https://t.me/PantherEdge" target="_blank" rel="noreferrer">@PantherEdge</a></p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="small">
+        © <span id="y"></span> Panther Trading. Built for faster, safer decision-making — not hype chasing.
+      </div>
+    </footer>
+  </main>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
